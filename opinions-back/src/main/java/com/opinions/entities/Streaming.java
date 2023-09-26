@@ -12,6 +12,7 @@ public class Streaming {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String category;
     private Character type;

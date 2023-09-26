@@ -16,7 +16,7 @@ public class UserDto {
     private String phone;
     private String email;
     private String gender;
-    private Long cpf;
+    private String cpf;
     private String birthday;
     private String password;
     private String picture;
