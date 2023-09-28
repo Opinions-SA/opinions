@@ -20,13 +20,14 @@ public class User {
     private Long id;
     private String name;
     private String username;
+    private String image;
     private String phone;
     private String email;
     private String gender;
     private String cpf;
     private String birthday;
     private String password;
-    private String picture;
+    
 
     public User(UserDto data){
         this.name = data.getName();
@@ -37,6 +38,6 @@ public class User {
         this.password = data.getPassword();
         this.birthday = data.getBirthday();
         this.cpf = data.getCpf();
-        this.picture = data.getPicture();
+        this.image = data.getPicture();
     }
 }
