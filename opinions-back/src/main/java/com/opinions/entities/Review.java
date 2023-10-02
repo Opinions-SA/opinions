@@ -13,5 +13,5 @@ public class Review {
     @OneToOne
     private User user;
     private Float rate;
-    private String comment;
+    private String description;
 }
