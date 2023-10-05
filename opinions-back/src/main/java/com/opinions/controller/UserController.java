@@ -48,10 +48,12 @@ public class UserController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/delete")
     public UserResponseDto delete(@RequestBody User data) {
-        Optional<User> optionalUser = repository.findById(data.getId());
-        User user = optionalUser.orElse(new User());
-        repository.deleteByUsername(data.getUsername());
-        UserResponseDto response = new UserResponseDto(user);
+        if(repository.existsById(data.getId())) {
+            repository.deleteById(data.getId());
+        } else {
+            throw new RuntimeException("User doesn't exist!");
+        }
+        UserResponseDto response = new UserResponseDto(data);
         return response;
     }
 
