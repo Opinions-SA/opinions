@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.opinions.dto.ReviewDto;
 import com.opinions.dto.ReviewResponseDto;
-import com.opinions.entities.Review;
-import com.opinions.repository.ReviewRepository;
+import com.opinions.service.ReviewService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -24,53 +23,36 @@ import com.opinions.repository.ReviewRepository;
 public class ReviewController {
 
     @Autowired
-    private ReviewRepository repository;
+    private ReviewService service;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ReviewResponseDto create(@RequestBody ReviewDto data){
-        Review review = new Review(data);
-        repository.save(review);
-        ReviewResponseDto response = new ReviewResponseDto(review);
-        return response;
+        return service.create(data);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<ReviewResponseDto> getAll(){
-        List<ReviewResponseDto> reviewList = repository.findAll().stream().map(ReviewResponseDto::new).toList();
-        return reviewList;
+        return service.getAll();
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/filter")
     public List<ReviewResponseDto> getByFilter(@RequestParam Optional<String> filter){
-        List<ReviewResponseDto> reviewList = null;
-        //usersList = service.findByFilter(filter).stream().map(UserResponseDto::new).toList();
-        return reviewList;
-    }
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("/delete")
-    public ReviewResponseDto delete(@RequestBody Review data) {
-        if(repository.existsById(data.getId())) {
-            repository.deleteById(data.getId());
-        } else {
-            throw new RuntimeException("Review doesn't exist!");
-        }
-        ReviewResponseDto response = new ReviewResponseDto(data);
-        return response;
+        //return servide.getByFilter(filter);
+        return null;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/update")
-    public ReviewResponseDto update(@RequestBody Review data) {
-        if(repository.existsById(data.getId())) {
-            repository.save(data);
-        } else {
-            throw new RuntimeException("Review doesn't exist!");
-        }
-        ReviewResponseDto response = new ReviewResponseDto(data);
-        return response;
+    public ReviewResponseDto update(@RequestBody ReviewDto data) {
+        return service.update(data);
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/delete")
+    public ReviewResponseDto delete(@RequestBody ReviewDto data) {
+        return service.delete(data);
+    } 
 }

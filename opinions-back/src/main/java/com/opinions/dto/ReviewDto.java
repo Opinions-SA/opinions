@@ -1,6 +1,5 @@
 package com.opinions.dto;
 
-import com.opinions.entities.Review;
 import com.opinions.entities.User;
 import com.opinions.entities.zonedDateTime;
 
