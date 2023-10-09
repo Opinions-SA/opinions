@@ -8,7 +8,9 @@ import com.opinions.dto.UserDto;
 import com.opinions.dto.UserResponseDto;
 import com.opinions.entities.User;
 import com.opinions.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
 
     @Autowired

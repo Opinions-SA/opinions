@@ -31,6 +31,7 @@ public class User {
     
 
     public User(UserDto data){
+        this.id = data.getId();
         this.name = data.getName();
         this.username = data.getUsername();
         this.email = data.getEmail();
