@@ -1,5 +1,6 @@
 package com.opinions.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import com.opinions.dto.ReviewDto;
 import com.opinions.dto.ReviewResponseDto;
 import com.opinions.entities.Review;
 import com.opinions.repository.ReviewRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReviewService {
 
     @Autowired
@@ -16,6 +19,7 @@ public class ReviewService {
 
     public ReviewResponseDto create (ReviewDto body) {
         Review review = new Review(body);
+        review.setCreated(review.getCreated() == null ? ZonedDateTime.now() : review.getCreated());
         repository.save(review);
         return new ReviewResponseDto(review);
     }
@@ -31,21 +35,19 @@ public class ReviewService {
 
     public ReviewResponseDto update (ReviewDto body) {
         Review review = new Review(body);
-        if(repository.existsById(review.getId())) {
-            repository.save(review);
-        } else {
+        if(!repository.existsById(review.getId())) {
             throw new RuntimeException("Review doesn't exist!");
+        } else {
+            review = repository.save(review);
         }
         return new ReviewResponseDto(review);
     }
 
     public ReviewResponseDto delete (ReviewDto body) {
         Review review = new Review(body);
-        if(repository.existsById(review.getId())) {
-            repository.deleteById(review.getId());
-        } else {
-            throw new RuntimeException("Review doesn't exist!");
-        }
+        review = repository.findById(review.getId())
+                .orElseThrow(() -> new RuntimeException("Review doesn't exist!"));
+        repository.deleteById(review.getId());
         return new ReviewResponseDto(review);
     }
 }

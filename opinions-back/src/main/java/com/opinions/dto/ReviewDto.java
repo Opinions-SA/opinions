@@ -1,13 +1,12 @@
 package com.opinions.dto;
 
-import com.opinions.entities.User;
-import com.opinions.entities.zonedDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.ZonedDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,11 +14,11 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ReviewDto {
-    
+
     private Long id;
-    private User user;
+    private Long user;
     private Float rate;
-    private zonedDateTime created;
+    private ZonedDateTime created;
     private String streaming;
     private String description;
 
