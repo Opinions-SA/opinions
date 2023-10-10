@@ -34,21 +34,19 @@ public class UserService {
 
     public UserResponseDto update (UserDto body) {
         User user = new User(body);
-        if(repository.existsById(user.getId())) {
-            repository.save(user);
-        } else {
+        if(!repository.existsById(user.getId())) {
             throw new RuntimeException("User doesn't exist!");
+        } else {
+            repository.save(user);
         }
         return new UserResponseDto(user);
     }
 
     public UserResponseDto delete (UserDto body) {
         User user = new User(body);
-        if(repository.existsById(user.getId())) {
-            repository.deleteById(user.getId());
-        } else {
-            throw new RuntimeException("User doesn't exist!");
-        }
+        user = repository.findById(user.getId())
+            .orElseThrow(() -> new RuntimeException("User doesn't exist!"));
+        repository.deleteById(user.getId());
         UserResponseDto response = new UserResponseDto(user);
         return response;
     }
