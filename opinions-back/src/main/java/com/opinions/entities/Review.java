@@ -3,8 +3,15 @@ package com.opinions.entities;
 import com.opinions.dto.ReviewDto;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+import java.time.ZonedDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Data
 public class Review {
@@ -12,9 +19,9 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private User user;
-    private zonedDateTime created;
+    private ZonedDateTime created;
     private String streaming;
     private Float rate;
     private String description;
@@ -22,7 +29,7 @@ public class Review {
     
     public Review(ReviewDto data) {
         this.id = data.getId();
-        this.user = data.getUser();
+        this.user = new User().builder().id(data.getUser()).build();
         this.rate = data.getRate();
         this.created = data.getCreated();
         this.streaming = data.getStreaming();
