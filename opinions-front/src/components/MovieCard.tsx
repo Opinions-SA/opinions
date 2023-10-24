@@ -1,24 +1,24 @@
-import { Movie } from '../interface/Movie';
+import { Streaming } from '../interface/Streaming';
 import { FaStar} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const imageUrl = import.meta.env.VITE_IMG;
 
 interface MovieCardProps {
-    movie: Movie;
+    streaming: Streaming;
     key: string;
     showLink: boolean;
   }
   
-  const MovieCard = ({ movie , key , showLink = true}: MovieCardProps) => {
+  const MovieCard = ({ streaming , key , showLink = true}: MovieCardProps) => {
   return (
     <div className='movie-card' id={key}>
-        <img src={imageUrl + movie.poster_path} alt={movie.title} />
+        <img src={imageUrl + streaming.poster_path} alt={streaming.title} />
         <div className='card-title'>
-            <h2>{movie.title}</h2>
-            <p><FaStar /> {movie.vote_average.toFixed(1)}</p>
+            <h2>{streaming.title}</h2>
+            <p><FaStar /> {streaming.vote_average.toFixed(1)}</p>
         </div>
-        {showLink && <Link to={`/movie/${movie.id}`}>Details</Link>}
+        {showLink && <Link to={`/movie/${streaming.id}`}>Details</Link>}
     </div>
   )
 }

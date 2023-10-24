@@ -2,29 +2,27 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BsGraphUp, BsWallet2, BsHourglassSplit, BsFillFileEarmarkTextFill } from "react-icons/bs";
 
-import { Movie } from "../interface/Movie";
+import { Streaming } from "../interface/Streaming";
 
 import MovieCard from "../components/MovieCard";
 
 import "../styles/Movies.css"
 
 const moviesApiURL: string = import.meta.env.VITE_API;
-const apiKey: string = import.meta.env.VITE_API_BEARER_KEY;
 
 const MoviePage = () => {
     const { id } = useParams();
-    const [movie, setMovie] = useState<Movie | null>(null); 
+    const [movie, setMovie] = useState<Streaming | null>(null); 
 
     const getMovie = async (url: RequestInfo | URL) => {
         const options: RequestInit = {
             method: 'GET',
             headers: {
                 accept: 'application/json',
-                Authorization: `Bearer ${apiKey}`
             }
         };
         const res = await fetch(url, options);
-        const data: Movie = await res.json();
+        const data: Streaming = await res.json();
         setMovie(data);
     }
 
@@ -36,7 +34,7 @@ const MoviePage = () => {
     }
 
     useEffect(() => {
-        const movieUrl: string = `${moviesApiURL}movie/${id}`;
+        const movieUrl: string = `${moviesApiURL}/streaming/movie/${id}`;
         getMovie(movieUrl);
     }, [id]);
 
@@ -44,7 +42,7 @@ const MoviePage = () => {
         <div className="movie-page">
             {movie && (
                 <>
-                    <MovieCard movie={movie} key={movie.id.toString()} showLink={false} />
+                    <MovieCard streaming={movie} key={movie.id.toString()} showLink={false} />
                     <p className="tagline">{movie.tagline}</p>
                     <div className="infos">
                         <div className="info">
