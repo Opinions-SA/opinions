@@ -1,36 +1,30 @@
 import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 
-import { Movie } from "../interface/Movie";
+import { Streaming } from "../interface/Streaming";
 
 import "../styles/MoviesGrid.css";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
-const apiKey: string = import.meta.env.VITE_API_BEARER_KEY;
-
-interface ApiResponse {
-  results: Movie[];
-}
 
 const Home = () => {
-  const [topMovies, setTopMovies] = useState<Movie[]>([]);
+  const [trendingStreaming, setTrendingStreaming] = useState<Streaming[]>([]);
 
-  const getTopRatedMovies = async (url: RequestInfo) => {
+  const getTrendingStreaming = async (url: RequestInfo) => {
     const options: RequestInit = {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${apiKey}`
       }
     };
     const res = await fetch(url, options);
-    const data: ApiResponse = await res.json();
-    setTopMovies(data.results);
+    const data: Streaming[] = await res.json();
+    setTrendingStreaming(data);
   };
 
   useEffect(() => {
-    const topRatedUrl: string = `${moviesApiURL}movie/top_rated?language=en-US&page=1`;
-    getTopRatedMovies(topRatedUrl);
+    const topRatedUrl: string = `${moviesApiURL}/streaming/trending/all`;
+    getTrendingStreaming(topRatedUrl);
   }, []);
 
   return (
@@ -39,8 +33,8 @@ const Home = () => {
             <h2>Best movies:</h2>
         </div>
         <div className="movies-container">
-            {topMovies.length === 0 ? <p>Carregando...</p> : (
-                topMovies.map((movie) => <MovieCard key={movie.id.toString()} movie={movie} showLink={true} />)
+            {trendingStreaming.length === 0 ? <p>Carregando...</p> : (
+                trendingStreaming.map((streaming) => <MovieCard key={streaming.id.toString()} streaming={streaming} showLink={true} />)
             )}
         </div>
     </div>
