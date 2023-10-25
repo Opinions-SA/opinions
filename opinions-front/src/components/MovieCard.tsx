@@ -18,7 +18,11 @@ interface MovieCardProps {
             <h2>{streaming.title}</h2>
             <p><FaStar /> {streaming.vote_average.toFixed(1)}</p>
         </div>
-        {showLink && <Link to={`/movie/${streaming.id}`}>Details</Link>}
+        {showLink && (
+        <Link to={`/${streaming.media_type}/${streaming.id}`}>
+            Details
+        </Link>
+        )}
     </div>
   )
 }

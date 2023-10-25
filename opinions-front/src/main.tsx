@@ -6,6 +6,7 @@ import App from './App.tsx'
 import Home from './pages/Home.tsx'
 import Search from './pages/Search.tsx'
 import Movie from './pages/Movie.tsx';
+import TvSerie from './pages/TvSerie.tsx';
 
 import './index.css'
 
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route element={<App />}>
           <Route path='/' element={<Home />} />
           <Route path='/movie/:id' element={<Movie />} />
+          <Route path='/tv/:id' element={<TvSerie />} />
           <Route path='search' element={<Search />} />
         </Route>
       </Routes>
