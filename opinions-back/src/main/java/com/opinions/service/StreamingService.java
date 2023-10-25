@@ -1,5 +1,6 @@
 package com.opinions.service;
 
+import com.opinions.dto.SeriesDto;
 import com.opinions.dto.StreamingDto;
 import com.opinions.repository.StreamingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class StreamingService {
 
     public StreamingDto getMovie(Integer movie) {
         return modelMapper.map(repository.getMovie(movie), StreamingDto.class);
+    }
+
+    public SeriesDto getTvSerie(Integer serie) {
+        return modelMapper.map(repository.getTvSerie(serie), SeriesDto.class);
     }
 
     public List<StreamingDto> searchMovies(String movie) {

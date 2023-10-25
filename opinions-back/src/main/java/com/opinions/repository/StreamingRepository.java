@@ -3,10 +3,12 @@ package com.opinions.repository;
 import com.opinions.client.StreamingMovieClientService;
 import com.opinions.client.StreamingSearchClientService;
 import com.opinions.client.StreamingTrendingClientService;
+import com.opinions.client.StreamingTvSerieClientService;
 import com.opinions.dto.StreamingTempDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.opinions.dto.SeriesDto;
 import com.opinions.dto.StreamingDto;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +28,9 @@ public class StreamingRepository {
     protected StreamingMovieClientService movieClientService;
 
     @Autowired
+    protected StreamingTvSerieClientService tvSerieClientService;
+
+    @Autowired
     protected StreamingSearchClientService searchClientService;
 
     public List<StreamingTempDto> getTrendingAll() {
@@ -34,6 +39,10 @@ public class StreamingRepository {
 
     public StreamingTempDto getMovie(Integer movie) {
         return (movieClientService.getMovie(API_TOKEN, movie));
+    }
+
+    public SeriesDto getTvSerie(Integer serie) {
+        return (tvSerieClientService.getTvSerie(API_TOKEN, serie));
     }
 
     public List<StreamingTempDto> searchMovies(String movie) {
