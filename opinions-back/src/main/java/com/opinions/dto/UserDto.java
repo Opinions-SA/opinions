@@ -20,4 +20,5 @@ public class UserDto {
     private String birthday;
     private String password;
     private String picture;
+    private UserRole role;
 }
