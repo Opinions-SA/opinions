@@ -1,5 +1,8 @@
 package com.opinions.controller;
 
+import com.opinions.dto.AuthenticationDto;
+import com.opinions.dto.LoginResponseDto;
+import com.opinions.dto.TokenDto;
 import com.opinions.dto.UserDto;
 import com.opinions.dto.UserResponseDto;
 import com.opinions.dto.UserRole;
@@ -13,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.opinions.dto.AuthenticationDto;
-import com.opinions.dto.LoginResponseDto;
 import com.opinions.entities.User;
 import com.opinions.infra.security.TokenService;
 import com.opinions.repository.UserRepository;
@@ -35,7 +36,7 @@ public class AuthenticationController {
     private TokenService tokenService;
     
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDto data) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid AuthenticationDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
@@ -45,7 +46,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid UserDto data) {
+    public ResponseEntity<UserResponseDto> register(@RequestBody @Valid UserDto data) {
         if(this.repository.findByUsername(data.getUsername()) != null) return ResponseEntity.badRequest().build();
 
         data.setRole(UserRole.USER);
@@ -55,6 +56,15 @@ public class AuthenticationController {
         this.repository.save(user);
         
         return ResponseEntity.ok(new UserResponseDto(user));
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestBody TokenDto token) {
+        try {
+            return ResponseEntity.ok(new UserResponseDto((User) this.repository.findByUsername(tokenService.validateToken(token.getToken()))));
+        } catch (RuntimeException exception){
+            return ResponseEntity.badRequest().body("Token inválido");
+        }
     }
 
     @PostMapping("/logout")
