@@ -7,4 +7,5 @@ public record UserResponseDto (Long id, String username, String email, String ph
     public UserResponseDto(User user) {
         this(user.getId(), user.getUsername(), user.getEmail(), user.getPhone());
     }
+
 }

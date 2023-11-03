@@ -3,6 +3,8 @@ package com.opinions.entities;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.opinions.dto.UserDto;
 import com.opinions.dto.UserRole;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
 
 @Getter
@@ -29,11 +27,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @NotNull @Column(unique = true)
     private String username;
     private String image;
     private String phone;
+    @NotNull @Column(unique = true)
     private String email;
     private String gender;
+    @Column(unique = true)
     private String cpf;
     private String birthday;
     private String password;

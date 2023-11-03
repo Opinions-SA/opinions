@@ -1,9 +1,8 @@
 package com.opinions.dto;
 
 public enum UserRole {
-
     ADMIN("admin"),
-    USER("user");    
+    USER("user");
 
     private String role;
 
