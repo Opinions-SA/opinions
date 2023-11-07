@@ -3,7 +3,7 @@ import { User } from "../../interface/User";
 
 export interface AuthContextProps {
     user: User | null;
-    signin: (email: string, password: string) => Promise<boolean>;
+    signin: (username: string, password: string) => Promise<boolean>;
     signout: () => void;
 }
 
