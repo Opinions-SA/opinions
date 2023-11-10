@@ -12,8 +12,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
             const storageData = localStorage.getItem('authToken');
             if(storageData) {
                 const data = await api.validateToken(storageData)
-                if (data.user) {
-                    setUser(data.user);
+                if (data) {
+                    setUser(data);
                 }
             }
         }
@@ -31,7 +31,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
     }
 
     const signout = async () => {
-        await api.logout();
+        const storageData = localStorage.getItem('authToken');
+        await api.logout(storageData ? storageData : "");
         setUser(null);
         setToken('');
     }

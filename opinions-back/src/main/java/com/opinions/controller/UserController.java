@@ -48,12 +48,4 @@ public class UserController {
     public UserResponseDto delete(@RequestBody UserDto data) {
         return service.delete(data);
     }
-
-    /*
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("/login")
-    public UserResponseDto getEditUser(@RequestBody User data) {
-        return service.verifyPassword(data);
-    }
-    */
 }

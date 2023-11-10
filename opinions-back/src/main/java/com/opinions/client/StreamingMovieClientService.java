@@ -1,8 +1,7 @@
 package com.opinions.client;
 
 import com.opinions.dto.StreamingTempDto;
-import com.opinions.dto.tmdbResult;
-import jakarta.websocket.server.PathParam;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
