@@ -1,7 +1,7 @@
 package com.opinions.controller;
 
 import com.opinions.dto.AuthenticationDto;
-import com.opinions.dto.LoginResponseDto;
+import com.opinions.dto.AuthResponseDto;
 import com.opinions.dto.TokenDto;
 import com.opinions.dto.UserDto;
 import com.opinions.dto.UserResponseDto;
@@ -36,18 +36,19 @@ public class AuthenticationController {
     private TokenService tokenService;
     
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid AuthenticationDto data) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthenticationDto data) {
+        if (this.repository.findByUsername(data.getUsername()) == null) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User does not exist!"));};
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDto(new UserResponseDto((User) this.repository.findByUsername(data.getUsername())), token));
+        return ResponseEntity.ok(new AuthResponseDto(new UserResponseDto((User) this.repository.findByUsername(data.getUsername())), token, "Successfully logged in!"));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDto> register(@RequestBody @Valid UserDto data) {
-        if(this.repository.findByUsername(data.getUsername()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<AuthResponseDto> register(@RequestBody @Valid UserDto data) {
+        if(this.repository.findByUsername(data.getUsername()) == null) return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "Registered error!"));
 
         data.setRole(UserRole.USER);
         data.setPassword(new BCryptPasswordEncoder().encode(data.getPassword()));
@@ -55,15 +56,15 @@ public class AuthenticationController {
 
         this.repository.save(user);
         
-        return ResponseEntity.ok(new UserResponseDto(user));
+        return ResponseEntity.ok(new AuthResponseDto(new UserResponseDto(user), null, "Registered successfully!"));
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<?> validateToken(@RequestBody TokenDto token) {
+    public ResponseEntity<AuthResponseDto> validateToken(@RequestBody TokenDto token) {
         try {
-            return ResponseEntity.ok(new UserResponseDto((User) this.repository.findByUsername(tokenService.validateToken(token.getToken()))));
+            return ResponseEntity.ok(new AuthResponseDto(new UserResponseDto((User) this.repository.findByUsername(tokenService.validateToken(token.getToken()))), token.getToken(), "Valid token!"));
         } catch (RuntimeException exception){
-            return ResponseEntity.badRequest().body("Token inválido");
+            return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "Invalid token!"));
         }
     }
 
