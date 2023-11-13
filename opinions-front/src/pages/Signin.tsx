@@ -16,8 +16,6 @@ export const Login = () => {
       const isLogged = await auth.signin(username, password);
       if (isLogged) {
         navigate("/");
-      } else {
-        alert("Error");
       }
     }
   };

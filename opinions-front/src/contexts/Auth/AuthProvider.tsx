@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { AuthContext } from "./AuthContext"
 import { User } from "../../interface/User";
+import { AuthResponse } from "../../interface/AuthResponse";
 import { useApi } from "../../hooks/useApi";
 
 export const AuthProvider = ({ children }: { children: JSX.Element}) => {
@@ -11,9 +12,13 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
         const validadeToken = async () => {
             const storageData = localStorage.getItem('authToken');
             if(storageData) {
-                const data = await api.validateToken(storageData)
-                if (data) {
-                    setUser(data);
+                try {
+                    const data = await api.validateToken(storageData)
+                    if (data.user) {
+                        setUser(data.user);
+                    } 
+                } catch (error: any) {
+                    alert(error.response?.data?.message || "Erro desconhecido");
                 }
             }
         }
@@ -21,11 +26,15 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
     }, []);
 
     const signin = async (email: string, password: string) => {
-        const data = await api.signin(email, password);
-        if (data.user && data.token) {
-            setUser(data.user);
-            setToken(data.token);
-            return true;
+        try {
+            const data = await api.signin(email, password);
+            if (data.user && data.token) {
+                setUser(data.user);
+                setToken(data.token);
+                return true;
+            } 
+        } catch (error: any) {
+            alert(error.response?.data?.message || "Erro desconhecido");
         }
         return false;
     }
