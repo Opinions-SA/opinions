@@ -1,7 +1,6 @@
 package com.opinions.dto;
 
 import java.math.BigInteger;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 

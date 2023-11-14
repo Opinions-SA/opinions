@@ -19,20 +19,24 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long streaming_id;
+    private String streaming_type;
     @ManyToOne
     private User user;
     private ZonedDateTime created;
-    private String streaming;
     private Float rate;
+    private String title;
     private String description;
 
     
     public Review(ReviewDto data) {
         this.id = data.getId();
-        this.user = new User().builder().id(data.getUser()).build();
-        this.rate = data.getRate();
+        this.streaming_id = data.getStreaming_id();
+        this.streaming_type = data.getStreaming_type();
+        this.user = data.getUser();
         this.created = data.getCreated();
-        this.streaming = data.getStreaming();
+        this.rate = data.getRate();
+        this.title = data.getTitle();
         this.description = data.getDescription();
     }
 }

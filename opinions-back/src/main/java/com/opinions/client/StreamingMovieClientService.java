@@ -1,8 +1,7 @@
 package com.opinions.client;
 
-import com.opinions.dto.StreamingTempDto;
-import com.opinions.dto.tmdbResult;
-import jakarta.websocket.server.PathParam;
+import com.opinions.dto.MovieDto;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,6 @@ public interface StreamingMovieClientService {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    StreamingTempDto getMovie(@RequestHeader("Authorization") String token, @PathVariable("movie") Integer movie);
+    MovieDto getMovie(@RequestHeader("Authorization") String token, @PathVariable("movie") Integer movie);
     
 }

@@ -6,7 +6,7 @@
 }
 
 .title .query-text {
-    color: #f7d354;
+    color: #610094;
 }
 
 .movies-container {
@@ -44,10 +44,10 @@
 }
 
 .movies-container div a {
-    background-color: #f7d354;
-    border: 2px solid #f7d354;
+    background-color: #610094;
+    border: 2px solid #610094;
     border-radius: 4px;
-    color: #000;
+    color: #fff;
     padding: 1rem 0.5rem;
     text-align: center;
     align-items: center;
@@ -57,14 +57,14 @@
 
 .movies-container div a:hover {
     background-color: transparent;
-    color: #f7d354;
+    color: #8300ca;
 }
 
 .movies-container .movie-card .card-title {
     width: 100%;
     flex-direction:row;
     padding-top: 1rem;
-    text-align: center;
+    text-align: left;
     line-height: 1.5rem;
 }
 

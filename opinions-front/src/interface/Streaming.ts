@@ -4,10 +4,6 @@ export interface Streaming {
     overview: string;
     release_date: Date;
     tagline: string;
-    budget: number;
-    revenue: number;
-    runtime: number;
-    genre_ids: Array<BigInteger>;
     popularity: number;
     vote_average: number;
     vote_count: number;

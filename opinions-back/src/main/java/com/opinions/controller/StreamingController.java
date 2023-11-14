@@ -1,5 +1,7 @@
 package com.opinions.controller;
 
+import com.opinions.dto.MovieDto;
+import com.opinions.dto.SeriesDto;
 import com.opinions.dto.StreamingDto;
 import com.opinions.service.StreamingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,19 @@ public class StreamingController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/movie/{movie}")
-    public StreamingDto getMovie(@PathVariable("movie") final Integer movie) {
+    public MovieDto getMovie(@PathVariable("movie") final Integer movie) {
         return service.getMovie(movie);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/tv/{serie}")
+    public SeriesDto getTvSerie(@PathVariable("serie") final Integer serie) {
+        return service.getTvSerie(serie);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/search/movie/{movie}")
-    public List<StreamingDto> searchMovies(@PathVariable("movie") final String movie) {
+    public List<MovieDto> searchMovies(@PathVariable("movie") final String movie) {
         return service.searchMovies(movie);
     }
 
