@@ -1,5 +1,6 @@
 package com.opinions.dto;
 
+import com.opinions.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,10 +17,12 @@ import java.time.ZonedDateTime;
 public class ReviewDto {
 
     private Long id;
-    private Long user;
-    private Float rate;
+    private Long streaming_id;
+    private String streaming_type;
+    private User user;
     private ZonedDateTime created;
-    private String streaming;
+    private Float rate;
+    private String title;
     private String description;
 
 }
