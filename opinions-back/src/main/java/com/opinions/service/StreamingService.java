@@ -1,5 +1,6 @@
 package com.opinions.service;
 
+import com.opinions.dto.MovieDto;
 import com.opinions.dto.SeriesDto;
 import com.opinions.dto.StreamingDto;
 import com.opinions.repository.StreamingRepository;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StreamingService {
@@ -25,18 +25,16 @@ public class StreamingService {
         return streamingListFormat(repository.getTrendingAll());
     }
 
-    public StreamingDto getMovie(Integer movie) {
-        return modelMapper.map(repository.getMovie(movie), StreamingDto.class);
+    public MovieDto getMovie(Integer movie) {
+        return modelMapper.map(repository.getMovie(movie), MovieDto.class);
     }
 
     public SeriesDto getTvSerie(Integer serie) {
         return modelMapper.map(repository.getTvSerie(serie), SeriesDto.class);
     }
 
-    public List<StreamingDto> searchMovies(String movie) {
-        return repository.searchMovies(movie).stream()
-                .map(streaming -> modelMapper.map(streaming, StreamingDto.class))
-                .collect(Collectors.toList());
+    public List<MovieDto> searchMovies(String movie) {
+        return repository.searchMovies(movie);
     }
 
     public StreamingDto streamingFormat (StreamingTempDto data) {

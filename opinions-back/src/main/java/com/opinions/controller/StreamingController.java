@@ -1,5 +1,6 @@
 package com.opinions.controller;
 
+import com.opinions.dto.MovieDto;
 import com.opinions.dto.SeriesDto;
 import com.opinions.dto.StreamingDto;
 import com.opinions.service.StreamingService;
@@ -24,7 +25,7 @@ public class StreamingController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/movie/{movie}")
-    public StreamingDto getMovie(@PathVariable("movie") final Integer movie) {
+    public MovieDto getMovie(@PathVariable("movie") final Integer movie) {
         return service.getMovie(movie);
     }
 
@@ -36,7 +37,7 @@ public class StreamingController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/search/movie/{movie}")
-    public List<StreamingDto> searchMovies(@PathVariable("movie") final String movie) {
+    public List<MovieDto> searchMovies(@PathVariable("movie") final String movie) {
         return service.searchMovies(movie);
     }
 
