@@ -1,4 +1,4 @@
-import { TvSerie } from '../interface/TvSerie';
+import { TvSerie } from '../../interface/TvSerie';
 import { FaStar} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 

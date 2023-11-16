@@ -9,7 +9,7 @@ import {
 
 import { Streaming } from "../interface/Streaming";
 
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/movieCard/MovieCard";
 
 import "../styles/Movies.css";
 

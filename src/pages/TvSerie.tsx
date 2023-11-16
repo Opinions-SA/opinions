@@ -4,9 +4,9 @@ import { BsGraphUp, BsWallet2, BsHourglassSplit, BsFillFileEarmarkTextFill } fro
 
 import { TvSerie } from "../interface/TvSerie";
 
-import TvSerieCard from "../components/TvSerieCard";
+import TvSerieCard from "../components/tvSerieCard/TvSerieCard";
 
-import "../styles/Movies.css"
+import "../styles/TvSerie.css"
 
 const seriesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import MovieCard from "../components/MovieCard";
-import Header from "../components/Header";
+import MovieCard from "../components/movieCard/MovieCard";
+import Header from "../components/header/Header";
 
 import { Streaming } from "../interface/Streaming";
 
@@ -10,7 +10,7 @@ const moviesApiURL: string = import.meta.env.VITE_API;
 
 const Home = () => {
   const [trendingStreaming, setTrendingStreaming] = useState<Streaming[]>([]);
-  const [currentMovieIndex, setCurrentMovieIndex] = useState(0);
+  const [currentMovieIndex] = useState(0);
 
   const getTrendingStreaming = async (url: RequestInfo) => {
     const options: RequestInit = {
@@ -29,25 +29,12 @@ const Home = () => {
     getTrendingStreaming(topRatedUrl);
   }, []);
 
-  const handleNextFilm = () => {
-    if (currentMovieIndex < trendingStreaming.length - 1) {
-      setCurrentMovieIndex(currentMovieIndex + 1);
-    }
-  };
-
-  const handlePreviousFilm = () => {
-    if (currentMovieIndex > 0) {
-      setCurrentMovieIndex(currentMovieIndex - 1);
-    }
-  };
-
   return (
     <div className="container">
         <div className="header-container">
           <Header
+              films={trendingStreaming}
               streaming={trendingStreaming[currentMovieIndex]}
-              onPreviousFilm={handlePreviousFilm}
-              onNextFilm={handleNextFilm}
             />
         </div>
         <div className="movies-container">
