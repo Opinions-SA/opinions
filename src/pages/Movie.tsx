@@ -11,7 +11,7 @@ import { Streaming } from "../interface/Streaming";
 
 import MovieCard from "../components/movieCard/MovieCard";
 
-import "../styles/Movies.css";
+ import "../styles/Movies.css";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 
@@ -49,7 +49,7 @@ const MoviePage = () => {
         <>
           <div className="card-container">
             <MovieCard
-              streaming={movie}
+              streamingList={[movie]}
               key={movie.id.toString()}
               showLink={false}
             />

@@ -1,30 +1,39 @@
 import { Streaming } from '../../interface/Streaming';
-// import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import './MovieCard.css';
 
 const imageUrl = import.meta.env.VITE_IMG;
 
 interface MovieCardProps {
-    streaming: Streaming;
-    key: string;
-    showLink: boolean;
-  }
-  
-  const MovieCard = ({ streaming , key , showLink = true}: MovieCardProps) => {
-  return (
-
-    <div className='movie-card' id={key}>
-        <img src={imageUrl + streaming.poster_path} alt={streaming.title} />
-        <div className='card-title'>
-            <h2>{streaming.title}</h2>
-        </div>
-        {showLink && (
-        <Link to={`/${streaming.media_type}/${streaming.id}`}>
-            Details
-        </Link>
-        )}
-    </div>
-  )
+  streamingList: Streaming[];
+  key: string;
 }
 
-export default MovieCard
+const MovieCard = ({ streamingList, key }: MovieCardProps) => {
+  if (!Array.isArray(streamingList) || streamingList.length === 0) {
+    return <p>Nenhum dado de streamingList disponível.</p>;
+  }
+
+  return (
+    <div className='movie-card'>
+      <div className='film-grid'>
+        <div className='grid-inner' id={key}>
+          {streamingList.map((film, index) => (
+            <div
+              key={index.toString()}
+              className={`film-item`}
+            >
+              <Link to={film ? `/${film.media_type}/${film.id}` : '#'}>
+                {film.poster_path && (
+                  <img src={imageUrl + film.poster_path} alt={film.title} />
+                )}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MovieCard;

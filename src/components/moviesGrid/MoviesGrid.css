@@ -1,0 +1,35 @@
+.movies-grid-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around; /* Ajuste conforme necessário */
+
+  @media screen and (max-width: 1200px) {
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.movie-card {
+  width: calc(16.666% - 20px); /* Ajuste conforme necessário */
+
+  @media screen and (max-width: 1200px) {
+    width: calc(25% - 20px);
+  }
+
+  @media screen and (max-width: 768px) {
+    width: calc(50% - 20px);
+  }
+
+  @media screen and (max-width: 480px) {
+    width: calc(100% - 20px);
+  }
+}

@@ -1,0 +1,30 @@
+.stream-container {
+  display: flex;
+  background-color: #222;
+}
+
+.film-grid {
+  display: flex;
+  overflow: hidden;
+  padding: 20px;
+  height: auto;
+}
+
+.film-item {
+  flex: 0 0 auto;
+  transform: scale(1.04);
+  margin-right: 10px;
+  transition: transform 0.3s;
+}
+
+.film-item:hover {
+  transform: scale(1.04);
+}
+
+.film-item img {
+  width: 200px;
+}
+
+.overlay {
+  background-color: #fff;
+}
