@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -38,12 +40,37 @@ public class StreamingTests {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    @Test // O TÍTULO DA SÉRIE VEM SEMPRE NULA
+    @Test
     public void testGetTrendingAll() {
-        
+        // Simular dados de streaming temporários
+        StreamingTempDto streamingTemp1 = new StreamingTempDto();
+        streamingTemp1.setId(1L);
+        streamingTemp1.setTitle("Movie 1");
+        streamingTemp1.setMedia_type("movie");
+
+        StreamingTempDto streamingTemp2 = new StreamingTempDto();
+        streamingTemp2.setId(2L);
+        streamingTemp2.setName("Series 1");
+        streamingTemp2.setMedia_type("tv");
+
+        List<StreamingTempDto> temporaryData = Arrays.asList(streamingTemp1, streamingTemp2);
+
+        // Configurar o comportamento simulado do repositório
+        when(streamingRepository.getTrendingAll()).thenReturn(temporaryData);
+
+        // Chamar o método real que está sendo testado
+        List<StreamingDto> result = streamingService.getTrendingAll();
+
+        // Verificar se o resultado corresponde ao esperado
+        assertEquals(2, result.size());
+        assertEquals("Movie 1", result.get(0).getTitle());
+        assertEquals("Series 1", result.get(1).getTitle());
+
+        // Verificar se o método do repositório foi chamado
+        verify(streamingRepository, times(1)).getTrendingAll();
     }
 
-    @Test // Deu boa
+    @Test
     public void testGetMovie() {
         // Simular dados de streaming temporários
         StreamingTempDto streamingTemp = new StreamingTempDto();
@@ -61,11 +88,11 @@ public class StreamingTests {
         assertEquals("Movie 1", movie.getTitle());
     }
 
-    @Test // Deu Boa
+    @Test
     public void testGetTvSerie() {
         StreamingTempDto streamingTemp = new StreamingTempDto();
         streamingTemp.setId(1L);
-        streamingTemp.setTitle("Series 1");
+        streamingTemp.setName("Series 1");
         streamingTemp.setMedia_type("tv");
 
         when(streamingRepository.getTvSerie(1)).thenReturn(modelMapper.map(streamingTemp, SeriesDto.class));
@@ -73,7 +100,7 @@ public class StreamingTests {
         assertEquals("Series 1", tvSerie.getName());
     }
 
-    @Test // Deu Boa
+    @Test
     public void testSearchMovies() {
         // Simular dados de streaming temporários
         StreamingTempDto streamingTemp1 = new StreamingTempDto();
@@ -102,15 +129,45 @@ public class StreamingTests {
 
     @Test
     public void testStreamingFormat() {
-        
+        // Simular dados de streaming temporários
+        StreamingTempDto streamingTemp = new StreamingTempDto();
+        streamingTemp.setId(1L);
+        streamingTemp.setName("Series 1");
+        streamingTemp.setMedia_type("tv");
+
+        // Chamar o método real que está sendo testado
+        StreamingDto result = streamingService.streamingFormat(streamingTemp);
+
+        // Verificar se o resultado corresponde ao esperado
+        assertNotNull(result);
+        assertEquals("Series 1", result.getTitle());
     }
 
     @Test
     public void testStreamingListFormat() {
-        
+        // Simular dados de streaming temporários
+        StreamingTempDto streamingTemp1 = new StreamingTempDto();
+        streamingTemp1.setId(1L);
+        streamingTemp1.setTitle("Movie 1");
+        streamingTemp1.setMedia_type("movie");
+
+        StreamingTempDto streamingTemp2 = new StreamingTempDto();
+        streamingTemp2.setId(2L);
+        streamingTemp2.setName("Series 1");
+        streamingTemp2.setMedia_type("tv");
+
+        List<StreamingTempDto> temporaryData = Arrays.asList(streamingTemp1, streamingTemp2);
+
+        // Chamar o método real que está sendo testado
+        List<StreamingDto> result = streamingService.streamingListFormat(temporaryData);
+
+        // Verificar se o resultado corresponde ao esperado
+        assertEquals(2, result.size());
+        assertEquals("Movie 1", result.get(0).getTitle());
+        assertEquals("Series 1", result.get(1).getTitle());
     }
 
-    @Test // Deu boa
+    @Test
     public void testStreamingSeriesToMovies() {
         // Simular dados de streaming temporários
         StreamingTempDto streamingTemp = new StreamingTempDto();

@@ -38,7 +38,7 @@ public class StreamingService {
     }
 
     public StreamingDto streamingFormat (StreamingTempDto data) {
-        if (data.getMedia_type().equals("TV")) {
+        if (data.getMedia_type().equals("tv")) {
             streamingSeriesToMovie(data);
         }
         return modelMapper.map(data, StreamingDto.class);
