@@ -35,6 +35,7 @@ public class  SecurityConfigurations {
                 .requestMatchers(HttpMethod.POST, "/auth/validate").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/logout").permitAll()
                 .requestMatchers(HttpMethod.GET, "/streaming/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/discover/**").permitAll()
                 .requestMatchers("/user").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
