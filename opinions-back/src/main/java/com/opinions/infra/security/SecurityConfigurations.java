@@ -36,7 +36,9 @@ public class  SecurityConfigurations {
                 .requestMatchers(HttpMethod.POST, "/auth/logout").permitAll()
                 .requestMatchers(HttpMethod.GET, "/streaming/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/discover/**").permitAll()
+                .requestMatchers("/user/token").hasRole("USER")
                 .requestMatchers("/user").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .cors(cors -> 

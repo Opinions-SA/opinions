@@ -37,7 +37,8 @@ public class AuthenticationController {
     
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthenticationDto data) {
-        if (this.repository.findByUsername(data.getUsername()) == null) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User does not exist!"));};
+        if (this.repository.findByUsername(data.getUsername()) == null) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User does not exist!"));}
+        if (!this.repository.findByUsername(data.getUsername()).isEnabled()) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User excluded!"));}
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
