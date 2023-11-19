@@ -27,17 +27,19 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @NotNull @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     private String image;
     private String phone;
-    @NotNull @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     private String gender;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String cpf;
     private String birthday;
     private String password;
+    @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT 'N'")
+    private Boolean active;
     private UserRole role;
     
 
@@ -52,6 +54,7 @@ public class User implements UserDetails {
         this.birthday = data.getBirthday();
         this.cpf = data.getCpf();
         this.image = data.getPicture();
+        this.active = data.getActive() != null ? data.getActive() : true;
         this.role = data.getRole();
     }
 
@@ -83,6 +86,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.active;
     }
 }
