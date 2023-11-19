@@ -4,6 +4,7 @@ import com.opinions.dto.UserDto;
 import com.opinions.dto.UserResponseDto;
 import com.opinions.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,17 @@ public class UserController {
         return service.getAll();
     }
 
+    @GetMapping("/token")
+    public UserDto getByToken(HttpServletRequest request) {
+        return service.getByToken(request);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{id}")
+    public UserDto getById(@PathVariable("id") Long id){
+        return service.getById(id);
+    }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/filter")
     public List<UserResponseDto> getByFilter(@RequestParam Optional<String> filter){
@@ -45,7 +57,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/delete")
-    public UserResponseDto delete(@RequestBody UserDto data) {
-        return service.delete(data);
+    public UserResponseDto delete(@RequestParam("id") Long id) {
+        return service.delete(id);
     }
 }
