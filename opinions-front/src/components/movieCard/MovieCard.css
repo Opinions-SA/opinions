@@ -22,7 +22,15 @@
 }
 
 .film-item img {
+  width: 400px;
+}
+
+.card-title {
   width: 200px;
+}
+
+.card-title h2, p {
+  border-bottom: 1px solid #ffffff75;
 }
 
 .overlay {

@@ -1,5 +1,7 @@
 import { Streaming } from '../../interface/Streaming';
 import { Link } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
+
 import './MovieCard.css';
 
 const imageUrl = import.meta.env.VITE_IMG;
@@ -28,6 +30,10 @@ const MovieCard = ({ streamingList, key }: MovieCardProps) => {
                   <img src={imageUrl + film.poster_path} alt={film.title} />
                 )}
               </Link>
+              <div className='card-title'>
+                <h2>{film.title}</h2>
+                <p><FaStar /> {film.vote_average.toFixed(1)}</p>
+              </div>
             </div>
           ))}
         </div>
