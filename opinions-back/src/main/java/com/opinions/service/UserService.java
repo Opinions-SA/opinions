@@ -15,13 +15,16 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
-public class UserService {
+public class UserService extends BasicService {
 
     @Autowired
     private UserRepository repository;
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -37,8 +40,7 @@ public class UserService {
     }
 
     public UserDto getByToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization").replace("Bearer ", "");
-        return  modelMapper.map(this.repository.findByUsername(tokenService.validateToken(token)), UserDto.class);
+        return modelMapper.map(this.repository.findByUsername(tokenService.validateToken(authorizationService.getTokenByRequestHeader(request))), UserDto.class);
     }
 
     public UserDto getById(Long id) {
@@ -50,11 +52,16 @@ public class UserService {
         return null;
     }
 
-    public UserResponseDto update (UserDto body) {
-        User user = new User(body);
-        if(!repository.existsById(user.getId())) {
-            throw new RuntimeException("User doesn't exist!");
+    public UserResponseDto update (UserDto body, HttpServletRequest request) {
+        if (body.getId() == null) {throw new RuntimeException("ID cannot be empty!");}
+
+        if(!tokenService.validadeAdmin(request)) {
+            if(!body.getId().equals(getByToken(request).getId())) {
+                throw new RuntimeException("No ADMIN access!");
+            }
         }
+
+        User user = putDiffToUpdate(body);
         repository.save(user);
         return new UserResponseDto(user);
     }
@@ -65,5 +72,17 @@ public class UserService {
         user.setActive(false);
         repository.save(user);
         return new UserResponseDto(user);
+    }
+
+    private User putDiffToUpdate(UserDto data) {
+        User user = this.repository.findById(data.getId()).orElseThrow(() -> new RuntimeException("User doesn't exist!"));
+
+        data.setPassword(null); data.setActive(null); data.setRole(null);
+        ObjectUtils.emptyToNull(data);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(data, user);
+        return user;
+
     }
 }

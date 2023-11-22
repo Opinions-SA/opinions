@@ -51,8 +51,8 @@ public class UserController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/update")
-    public UserResponseDto update(@RequestBody UserDto data) {
-        return service.update(data);
+    public UserResponseDto update(HttpServletRequest request, @RequestBody UserDto data) {
+        return service.update(data, request);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
