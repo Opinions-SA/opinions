@@ -1,6 +1,7 @@
 package com.opinions.service;
 
 import com.opinions.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,5 +16,9 @@ public class AuthorizationService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
+    }
+
+    public String getTokenByRequestHeader(HttpServletRequest request) {
+        return request.getHeader("Authorization").replace("Bearer ", "");
     }
 }

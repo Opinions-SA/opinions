@@ -19,11 +19,14 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private Long streaming_id;
+    @Column(nullable = false)
     private String streaming_type;
     @ManyToOne
     private User user;
     private ZonedDateTime created;
+    @Column(nullable = false)
     private Float rate;
     private String title;
     private String description;

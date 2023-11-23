@@ -24,5 +24,6 @@ public class UserDto {
     private String birthday;
     private String password;
     private String picture;
+    private Boolean active;
     private UserRole role;
 }

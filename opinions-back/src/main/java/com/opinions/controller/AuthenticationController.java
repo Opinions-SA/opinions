@@ -37,7 +37,8 @@ public class AuthenticationController {
     
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthenticationDto data) {
-        if (this.repository.findByUsername(data.getUsername()) == null) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User does not exist!"));};
+        if (this.repository.findByUsername(data.getUsername()) == null) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User does not exist!"));}
+        if (!this.repository.findByUsername(data.getUsername()).isEnabled()) {return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User excluded!"));}
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
@@ -48,7 +49,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDto> register(@RequestBody @Valid UserDto data) {
-        if(this.repository.findByUsername(data.getUsername()) == null) return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "Registered error!"));
+        if(this.repository.existsByUsername(data.getUsername()) || this.repository.existsByEmail(data.getEmail()) || this.repository.existsByCpf(data.getCpf())) return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "User already exists!"));
 
         data.setRole(UserRole.USER);
         data.setPassword(new BCryptPasswordEncoder().encode(data.getPassword()));
