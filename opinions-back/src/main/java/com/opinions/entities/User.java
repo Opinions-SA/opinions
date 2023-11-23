@@ -55,9 +55,9 @@ public class User implements UserDetails {
         this.cpf = data.getCpf();
         this.image = data.getPicture();
         this.active = data.getActive() != null ? data.getActive() : true;
-        this.role = data.getRole();
+        this.role = data.getRole() != null ? data.getRole() : UserRole.USER;
     }
-
+    
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -4,6 +4,11 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import com.opinions.dto.UserRole;
+import com.opinions.repository.UserRepository;
+import com.opinions.service.AuthorizationService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,12 @@ import com.opinions.entities.User;
 
 @Service
 public class TokenService {
+
+    @Autowired
+    private UserRepository repository;
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
     @Value("${api.security.token.secret}")
     private String secret;
@@ -43,6 +54,10 @@ public class TokenService {
         } catch (JWTVerificationException exception) {
             return "";
         }
+    }
+
+    public Boolean validadeAdmin (HttpServletRequest request) {
+        return this.repository.findByUsername(validateToken(authorizationService.getTokenByRequestHeader(request))).getAuthorities().contains(UserRole.ADMIN);
     }
 
     private Instant genExpirationDate() {

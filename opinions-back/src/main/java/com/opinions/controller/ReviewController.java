@@ -3,6 +3,7 @@ package com.opinions.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.opinions.dto.ReviewStreamingResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.opinions.dto.ReviewDto;
 import com.opinions.dto.ReviewResponseDto;
 import com.opinions.service.ReviewService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -36,6 +39,13 @@ public class ReviewController {
     public List<ReviewResponseDto> getAll(){
         return service.getAll();
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/user")
+    public List<ReviewStreamingResponseDto> getByUser(HttpServletRequest request) {
+        return service.getByUser(request);
+    }
+
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/filter")
