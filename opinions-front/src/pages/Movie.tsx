@@ -12,6 +12,7 @@ import { Streaming } from "../interface/Streaming";
 import MovieCard from "../components/movieCard/MovieCard";
 
  import "../styles/Movies.css";
+import UserReview from "../components/userReview/UserReview";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 
@@ -47,13 +48,13 @@ const MoviePage = () => {
     <div className="movie-page">
       {movie && (
         <>
-          <div className="card-container">
+        <div className="card-container">
+          <div className="card-content">
             <MovieCard
               streamingList={[movie]}
               key={movie.id.toString()}
               showLink={false}
             />
-          </div>
           <div className="infos-container">
             <p className="tagline">{movie.tagline}</p>
             <div className="infos">
@@ -83,6 +84,10 @@ const MoviePage = () => {
               <p>{movie.overview}</p>
             </div>
           </div>
+          </div>
+          <UserReview/>
+        </div>
+          
         </>
       )}
     </div>

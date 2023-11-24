@@ -1,7 +1,9 @@
 .movie-page {
     color: #fff;
+    background-color: #1f1f1f;
+    padding: 20px 20px 50px 20px;
+    border-radius: 6px;
     display: flex;
-    flex-direction: row;
     max-width: 90%;
     margin: 2rem auto;
 }
@@ -23,7 +25,14 @@
 }
 
 .card-container {
-    padding-right: 30px;
+    flex-direction: column;
+}
+
+.card-content {
+    margin: 20px 0;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: row;
 }
 
 .movie-page .movie-card {

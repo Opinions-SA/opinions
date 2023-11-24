@@ -27,7 +27,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="home-container">
         <div className="header-container">
           <Header/>
         </div>

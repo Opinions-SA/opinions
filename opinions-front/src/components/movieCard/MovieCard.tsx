@@ -1,8 +1,8 @@
-import { Streaming } from '../../interface/Streaming';
-import { Link } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
+import { Streaming } from "../../interface/Streaming";
+import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
-import './MovieCard.css';
+import "./MovieCard.css";
 
 const imageUrl = import.meta.env.VITE_IMG;
 
@@ -17,24 +17,25 @@ const MovieCard = ({ streamingList, key }: MovieCardProps) => {
   }
 
   return (
-    <div className='movie-card'>
-      <div className='film-grid'>
-        <div className='grid-inner' id={key}>
+    <div className="movie-card">
+      <div className="film-grid">
+        <div className="grid-inner" id={key}>
           {streamingList.map((film, index) => (
-            <div
-              key={index.toString()}
-              className={`film-item`}
-            >
-              <Link to={film ? `/${film.media_type}/${film.id}` : '#'}>
-                {film.poster_path && (
-                  <img src={imageUrl + film.poster_path} alt={film.title} />
-                )}
-              </Link>
-              <div className='card-title'>
-                <h2>{film.title}</h2>
-                <p><FaStar /> {film.vote_average.toFixed(1)}</p>
+            <>
+              <div key={index.toString()} className={`film-item`}>
+                <Link to={film ? `/${film.media_type}/${film.id}` : "#"}>
+                  {film.poster_path && (
+                    <img src={imageUrl + film.poster_path} alt={film.title} />
+                  )}
+                </Link>
               </div>
-            </div>
+              <div className="card-title">
+                <h2>{film.title}</h2>
+                <p>
+                  <FaStar /> {film.vote_average.toFixed(1)}
+                </p>
+              </div>
+            </>
           ))}
         </div>
       </div>

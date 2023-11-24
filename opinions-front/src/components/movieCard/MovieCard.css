@@ -5,9 +5,8 @@
 
 .film-grid {
   display: flex;
-  overflow: hidden;
-  padding: 20px;
-  height: auto;
+  padding: 20px ;
+  height: 500px;
 }
 
 .film-item {
@@ -23,14 +22,26 @@
 
 .film-item img {
   width: 400px;
+  border-radius: 7px;
 }
 
 .card-title {
+  height: 50px;
   width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.card-title h2, p {
-  border-bottom: 1px solid #ffffff75;
+.card-title h2 {
+  height: 20px;
+  padding: 0 10px 0 0;
+}
+
+.card-title p {
+  height: 10px;
+  display: flex;
+  gap: 3px;
 }
 
 .overlay {

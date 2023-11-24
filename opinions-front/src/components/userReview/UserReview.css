@@ -1,0 +1,32 @@
+.review-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  box-shadow: 0 7px 12px rgba(0, 0, 0, 0.767);
+}
+
+.review-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-input-1,
+.review-input-2 {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.review-input-2 {
+  height: auto;
+  min-height: 120px;
+}
