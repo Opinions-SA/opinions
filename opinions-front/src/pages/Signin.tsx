@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { BiSolidUserCircle } from "react-icons/bi";
 
 import "../styles/Login.css";
 
@@ -24,10 +25,8 @@ export const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="login-title">
-        <h2>Login</h2>
-      </div>
       <div className="login-inputs">
+      <BiSolidUserCircle className="user-icon"/>
         <input
           type="text"
           value={email}
@@ -40,7 +39,12 @@ export const Login = () => {
           placeholder="Write your password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button className="login-button" onClick={handleLogin}>Login</button>
+        <div className="signup-content">
+          <label>Don't have an account yet?</label>
+          <button className="signup-button" onClick={handleLogin}>Create now</button>
+        </div>
+        
       </div>
     </div>
   );
