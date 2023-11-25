@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class tmdbResult {
+public class TmdbResult {
 
     private Long page;
 

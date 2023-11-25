@@ -1,6 +1,6 @@
 package com.opinions.client;
 
-import com.opinions.dto.tmdbMovieResult;
+import com.opinions.dto.TmdbMovieResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -15,5 +15,5 @@ public interface StreamingSearchClientService {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    tmdbMovieResult searchMovies(@RequestHeader("Authorization") String token, @RequestParam("query") String movie);
+    TmdbMovieResult searchMovies(@RequestHeader("Authorization") String token, @RequestParam("query") String movie);
 }

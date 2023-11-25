@@ -1,6 +1,6 @@
 package com.opinions.client;
 
-import com.opinions.dto.tmdbResult;
+import com.opinions.dto.TmdbResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,5 +12,5 @@ public interface StreamingTrendingClientService {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    tmdbResult getAll(@RequestHeader("Authorization") String token);
+    TmdbResult getAll(@RequestHeader("Authorization") String token);
 }
