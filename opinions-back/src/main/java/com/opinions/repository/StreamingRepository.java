@@ -6,6 +6,7 @@ import com.opinions.client.StreamingTrendingClientService;
 import com.opinions.client.StreamingTvSerieClientService;
 import com.opinions.dto.MovieDto;
 import com.opinions.dto.StreamingTempDto;
+import com.opinions.dto.TmdbTrailerResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -47,6 +48,14 @@ public class StreamingRepository {
 
     public List<MovieDto> searchMovies(String movie) {
         return (searchClientService.searchMovies(API_TOKEN, movie)).getResults();
+    }
+
+    public TmdbTrailerResult getTrailer(Integer id, Boolean movie) {
+        if (movie) {
+            return movieClientService.getMovieTrailer(API_TOKEN, id);
+        } else {
+            return tvSerieClientService.getTvSerieTrailer(API_TOKEN, id);
+        }
     }
     
 }
