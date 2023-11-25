@@ -3,11 +3,13 @@ package com.opinions.service;
 import com.opinions.dto.MovieDto;
 import com.opinions.dto.SeriesDto;
 import com.opinions.dto.StreamingDto;
+import com.opinions.dto.StreamingTempDto;
+import com.opinions.dto.TmdbTrailerResult;
+import com.opinions.dto.TrailerDto;
 import com.opinions.repository.StreamingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
-import com.opinions.dto.StreamingTempDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,11 +28,25 @@ public class StreamingService {
     }
 
     public MovieDto getMovie(Integer movie) {
-        return modelMapper.map(repository.getMovie(movie), MovieDto.class);
+        MovieDto result = modelMapper.map(repository.getMovie(movie), MovieDto.class);
+        result.setTrailer(getTrailerLink(movie, true));
+        return result;
     }
 
     public SeriesDto getTvSerie(Integer serie) {
-        return modelMapper.map(repository.getTvSerie(serie), SeriesDto.class);
+        SeriesDto result = modelMapper.map(repository.getTvSerie(serie), SeriesDto.class);;
+        result.setTrailer(getTrailerLink(serie, false));
+        return result;
+    }
+
+    public String getTrailerLink (Integer id, Boolean movie) {
+        TmdbTrailerResult trailerDto = modelMapper.map(repository.getTrailer(id, movie), TmdbTrailerResult.class);
+        for (TrailerDto result: trailerDto.getResults()) {
+            if (result.getType().equals("Trailer")) {
+                return ("https://www.youtube.com/embed/" + result.getKey() + "?autoplay=1&hl=pt&modestbranding=1&fs=1&autohide=1");
+            }
+        }
+        return null;
     }
 
     public List<MovieDto> searchMovies(String movie) {

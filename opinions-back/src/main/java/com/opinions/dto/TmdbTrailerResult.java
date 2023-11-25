@@ -9,9 +9,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class tmdbMovieResult {
+public class TmdbTrailerResult {
 
-    private Long page;
+    private Long id;
 
-    private List<MovieDto> results;
+    private List<TrailerDto> results;
 }
