@@ -5,7 +5,7 @@ import { BiSolidUserCircle } from "react-icons/bi";
 
 import "../styles/Login.css";
 
-export const Login = () => {
+const Login = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -17,8 +17,6 @@ export const Login = () => {
       const isLogged = await auth.signin(email, password);
       if (isLogged) {
         navigate("/");
-      } else {
-        alert("Error");
       }
     }
   };
@@ -42,10 +40,12 @@ export const Login = () => {
         <button className="login-button" onClick={handleLogin}>Login</button>
         <div className="signup-content">
           <label>Don't have an account yet?</label>
-          <button className="signup-button" onClick={handleLogin}>Create now</button>
+          <button className="signup-button" onClick={(() => {navigate("/register")})}>Create now</button>
         </div>
         
       </div>
     </div>
   );
 };
+
+export default Login;

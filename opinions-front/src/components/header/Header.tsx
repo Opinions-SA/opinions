@@ -1,4 +1,4 @@
-import  backOpinions  from '../../../public/OPINIONS.png';
+import  backOpinions  from "../../assets/OPINIONS.png";
 
 import "./Header.css";
 

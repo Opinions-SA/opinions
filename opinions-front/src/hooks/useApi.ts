@@ -8,6 +8,7 @@ const api = axios.create({
 interface AuthApi {
     validateToken: (token: string) => Promise<AuthResponse>;
     signin: (username: string, password: string) => Promise<AuthResponse>;
+    signup: (username: string, email: string, password: string) => Promise<AuthResponse>;
     logout: (token: string) => Promise<AuthResponse>;
 }
 
@@ -18,6 +19,10 @@ export const useApi = (): AuthApi => ({
     },
     signin: async (username: string, password: string) => {
         const response: AxiosResponse<AuthResponse> = await api.post('/auth/login', { username, password });
+        return response.data;
+    },
+    signup: async (username: string, email: string, password: string) => {
+        const response: AxiosResponse<AuthResponse> = await api.post('/auth/register', { username, email, password });
         return response.data;
     },
     logout: async (token: string) => {
