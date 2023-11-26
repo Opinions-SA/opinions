@@ -30,15 +30,16 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
     private String image;
+    @Column(unique = true)
     private String phone;
     @Column(unique = true, nullable = false)
     private String email;
     private String gender;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String cpf;
     private String birthday;
     private String password;
-    @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT 'N'")
+    @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT '1'")
     private Boolean active;
     private UserRole role;
     

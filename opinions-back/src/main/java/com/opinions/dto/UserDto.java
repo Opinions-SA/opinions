@@ -19,7 +19,6 @@ public class UserDto {
     @NotNull
     private String email;
     private String gender;
-    @NotNull
     private String cpf;
     private String birthday;
     private String password;

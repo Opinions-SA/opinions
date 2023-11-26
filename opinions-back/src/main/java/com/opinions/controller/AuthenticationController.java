@@ -52,7 +52,8 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDto> register(@RequestBody @Valid UserDto data) {
-        if(this.repository.existsByUsername(data.getUsername()) || this.repository.existsByEmail(data.getEmail()) || this.repository.existsByCpf(data.getCpf())) return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "User already exists!"));
+        if(this.repository.existsByUsername(data.getUsername()) || this.repository.existsByEmail(data.getEmail()) || (data.getCpf() != null && this.repository.existsByCpf(data.getCpf())) 
+        || (data.getPhone() != null && this.repository.existsByPhone(data.getPhone()))) return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "User already exists!"));
 
         data.setRole(UserRole.USER);
         data.setPassword(new BCryptPasswordEncoder().encode(data.getPassword()));
