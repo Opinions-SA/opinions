@@ -6,6 +6,7 @@ import com.opinions.dto.TokenDto;
 import com.opinions.dto.UserDto;
 import com.opinions.dto.UserResponseDto;
 import com.opinions.dto.UserRole;
+import com.opinions.dto.PasswordChangeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,8 @@ import com.opinions.infra.security.TokenService;
 import com.opinions.repository.UserRepository;
 
 import jakarta.validation.Valid;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("auth")
@@ -67,6 +70,21 @@ public class AuthenticationController {
         } catch (RuntimeException exception){
             return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "Invalid token!"));
         }
+    }
+
+    @PostMapping("/password")
+    public ResponseEntity<AuthResponseDto> passwordChange(@RequestBody @Valid PasswordChangeDto data) {
+        Optional<User> userOptional = this.repository.findById(data.getId());
+        if (userOptional.isEmpty() || !userOptional.get().isEnabled()) {
+            return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"User does not exist or disable!"));
+        }
+        User user = userOptional.get();
+        if (!new BCryptPasswordEncoder().matches(data.getOld_password(), user.getPassword())) {
+            return ResponseEntity.badRequest().body(new AuthResponseDto(null, null,"Incorrect password!"));
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(data.getOld_password()));
+        repository.save(user);
+        return ResponseEntity.ok(new AuthResponseDto(new UserResponseDto(user), null, "Successfully changed!"));
     }
 
     @PostMapping("/logout")

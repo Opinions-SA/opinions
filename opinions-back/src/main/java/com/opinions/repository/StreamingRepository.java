@@ -50,6 +50,10 @@ public class StreamingRepository {
         return (searchClientService.searchMovies(API_TOKEN, movie)).getResults();
     }
 
+    public List<StreamingTempDto> searchMulti(String query) {
+        return (searchClientService.searchMulti(API_TOKEN, query)).getResults();
+    }
+
     public TmdbTrailerResult getTrailer(Integer id, Boolean movie) {
         if (movie) {
             return movieClientService.getMovieTrailer(API_TOKEN, id);
