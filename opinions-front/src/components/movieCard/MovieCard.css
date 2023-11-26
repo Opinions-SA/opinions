@@ -1,0 +1,50 @@
+.stream-container {
+    display: flex;
+    background-color: #222;
+  }
+  
+  .film-grid {
+    display: flex;
+    padding: 20px ;
+    height: 500px;
+  }
+  
+  .film-item {
+    flex: 0 0 auto;
+    transform: scale(1.04);
+    margin-right: 10px;
+    transition: transform 0.3s;
+  }
+  
+  .film-item:hover {
+    transform: scale(1.04);
+  }
+  
+  .film-item img {
+    width: 400px;
+    border-radius: 7px;
+  }
+  
+  .card-title {
+    height: 50px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card-title h2 {
+    height: 20px;
+    padding: 0 10px 0 0;
+  }
+  
+  .card-title p {
+    height: 10px;
+    display: flex;
+    gap: 3px;
+  }
+  
+  .overlay {
+    background-color: #fff;
+  }
+  

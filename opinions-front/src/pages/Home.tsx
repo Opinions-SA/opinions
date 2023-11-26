@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import MovieCard from "../components/MovieCard";
-import Header from "../components/Header";
+import MoviesGrid from "../components/moviesGrid/MoviesGrid";
+import Header from "../components/header/Header";
 
 import { Streaming } from "../interface/Streaming";
-
-import "../styles/MoviesGrid.css";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 
 const Home = () => {
   const [trendingStreaming, setTrendingStreaming] = useState<Streaming[]>([]);
-  const [currentMovieIndex, setCurrentMovieIndex] = useState(0);
 
   const getTrendingStreaming = async (url: RequestInfo) => {
     const options: RequestInit = {
@@ -29,31 +26,14 @@ const Home = () => {
     getTrendingStreaming(topRatedUrl);
   }, []);
 
-  
-  const handleNextFilm = () => {
-    if (currentMovieIndex < trendingStreaming.length - 1) {
-      setCurrentMovieIndex(currentMovieIndex + 1);
-    }
-  };
-
-  const handlePreviousFilm = () => {
-    if (currentMovieIndex > 0) {
-      setCurrentMovieIndex(currentMovieIndex - 1);
-    }
-  };
-
   return (
-    <div className="container">
+    <div className="home-container">
         <div className="header-container">
-          <Header
-              streaming={trendingStreaming[currentMovieIndex]}
-              onPreviousFilm={handlePreviousFilm}
-              onNextFilm={handleNextFilm}
-            />
+          <Header/>
         </div>
         <div className="movies-container">
             {trendingStreaming.length === 0 ? <p>Carregando...</p> : (
-                trendingStreaming.map((streaming) => <MovieCard key={streaming.id.toString()} streaming={streaming} showLink={true} />)
+              <MoviesGrid gridData={trendingStreaming} />
             )}
         </div>
     </div>
