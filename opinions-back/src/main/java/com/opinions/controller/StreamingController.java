@@ -41,4 +41,10 @@ public class StreamingController {
         return service.searchMovies(movie);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/search/multi/{query}")
+    public List<StreamingDto> searchMulti(@PathVariable("query") final String query) {
+        return service.searchMulti(query);
+    }
+
 }

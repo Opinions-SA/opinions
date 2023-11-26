@@ -53,6 +53,11 @@ public class StreamingService {
         return repository.searchMovies(movie);
     }
 
+    public List<StreamingDto> searchMulti(String query) {
+        List<StreamingTempDto> temp = repository.searchMulti(query);
+        return streamingListFormat(temp);
+    }
+
     public StreamingDto streamingFormat (StreamingTempDto data) {
         if (data.getMedia_type().equals("tv")) {
             streamingSeriesToMovie(data);
@@ -65,6 +70,8 @@ public class StreamingService {
         for(StreamingTempDto streaming: data) {
             if (streaming.getMedia_type().equals("tv")) {
                 streamingSeriesToMovie(streaming);
+            } else if (streaming.getMedia_type().equals("person")) {
+                continue;
             }
             result.add(modelMapper.map(streaming, StreamingDto.class));
         }
