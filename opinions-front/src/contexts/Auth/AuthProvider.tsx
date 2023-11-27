@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
     }
 
     const signout = async () => {
-        const storageData = localStorage.getItem('authToken');
+        // const storageData = localStorage.getItem('authToken');
         // await api.logout(storageData ? storageData : "");
         setUser(null);
         tokenSetter('');
@@ -66,8 +66,18 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
         localStorage.setItem('authToken', token);
     }
 
+    const validateField = async (field: string, value: string) => {
+        try {
+            const data = await api.validateField(field, value);
+            return data;
+        } catch (error: any) {
+            alert(error.response?.data?.message || "Erro desconhecido");
+        }
+        return false;
+    }
+
     return (
-        <AuthContext.Provider value={{ user, token, signin, signup, signout }}>
+        <AuthContext.Provider value={{ user, token, signin, signup, signout, validateField }}>
             {children}        
         </AuthContext.Provider>
     )

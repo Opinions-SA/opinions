@@ -7,6 +7,7 @@ export interface AuthContextProps {
     signin: (username: string, password: string) => Promise<boolean>;
     signup: (username: string, email: string, password: string) => Promise<boolean>;
     signout: () => void;
+    validateField: (field: string, value: string) => Promise<Boolean>;
 }
 
 export const AuthContext = createContext<AuthContextProps>(null!);

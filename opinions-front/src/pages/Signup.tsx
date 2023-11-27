@@ -26,6 +26,15 @@ const Register = () => {
     }
   };
 
+  const validateField = async (field: string, value: string) => {
+    if (value) {
+      const isValidField = await auth.validateField(field, value);
+      if (!isValidField) {
+        alert("Already exists: " + field.toUpperCase());
+      }
+    }
+  }
+
   return (
     <div className="login-container">
       <div className="login-inputs">
@@ -34,12 +43,14 @@ const Register = () => {
           type="text"
           value={username}
           placeholder="Write your username"
+          onBlur={(e) => validateField("username", e.target.value)}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="text"
           value={email}
           placeholder="Write your email"
+          onBlur={(e) => validateField("email", e.target.value)}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
