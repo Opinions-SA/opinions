@@ -1,12 +1,19 @@
+:root {    
+  --color-white: #F2F2F2;     
+}
+
 .stream-container {
+  position: relative;
+  background-color: var(--color-white);
   width: 100%;
+  max-height: auto;
+  margin-bottom: 20px;
+  justify-content: center; 
 }
 
 .stream-container img {
-  width: 100%;
-  height: auto;
+  border-radius: 6px;
   max-width: 100%;
-  max-height: 100vh;
-  display: block;
-  margin: 0 auto;
-}
+  max-height: auto;
+  display: flex;
+} 

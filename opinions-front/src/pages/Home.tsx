@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div className="home-container">
         <div className="header-container">
-          <Header/>
+          <Header streaming={trendingStreaming}/>
         </div>
         <div className="movies-container">
             {trendingStreaming.length === 0 ? <p>Carregando...</p> : (

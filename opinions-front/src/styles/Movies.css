@@ -1,11 +1,23 @@
+:root {
+  --color-black: #181818;      
+  --color-grey-background: #202020; 
+  --color-grey: #4e4e4e; 
+  --color-grey-shadow:rgba(172, 171, 171, 0.623); 
+  --color-purple-bold: #5328c0;
+  --color-purple: #8758FF;   
+  --color-purple-hover: #a37eff;     
+  --color-blue: #51bcee;      
+  --color-white: #F2F2F2;     
+}
 .movie-page {
-    color: #fff;
-    background-color: #1f1f1f;
+    color: var(--color-black);
+    background-color: var(--color-white);
     padding: 20px 20px 50px 20px;
     border-radius: 6px;
     display: flex;
     max-width: 90%;
     margin: 2rem auto;
+    box-shadow: 0 0 12px var(--color-grey-shadow);
   }
   
   @media (min-width: 1300px) {
@@ -21,7 +33,7 @@
   
   .movie-page svg {
     font-size: 1.5rem;
-    color: #610094;
+    color: var(--color-purple);
   }
   
   .card-container {
@@ -93,8 +105,10 @@
     justify-content: space-between;
   }
   
+  /* Review components */
+  
   .open-review-button {
-    background-color: #3498db;
+    background-color: var(--color-blue);
     color: white;
     padding: 10px 15px;
     border: none;

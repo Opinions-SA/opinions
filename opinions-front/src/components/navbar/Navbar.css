@@ -1,11 +1,22 @@
+:root {
+  --color-black: #181818;      
+  --color-grey-background: #202020; 
+  --color-grey: #4e4e4e; 
+  --color-grey-2:rgba(133, 133, 133, 0.418); 
+  --color-purple-bold: #5328c0;
+  --color-purple: #8758FF;   
+  --color-purple-hover: #a37eff;     
+  --color-blue: #5CB8E4;      
+  --color-white: #F2F2F2;     
+}
+
 #navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  border-bottom: 0.2px solid #ffffff42;
-  background-color: black;
-  color: #5e17eb;
+  background-color: var(--color-white);
+  color: var(--color-black);
 }
 
 #navbar h2 a {
@@ -25,26 +36,33 @@
   width: 300px;
   padding: 0.2rem 0.8rem;
   border-radius: 4px;
-  border: none;
+  border: 1px solid var(--color-grey-background);
+  transition: color 0.4s, transform 0.4s;
+}
+
+#navbar input:hover {
+  transform: scale(1.01);
+  color: var(--color-grey-background);
 }
 
 #navbar form button {
-  background-color: #5e17eb;
-  border: 1px solid #cc6eff;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-grey-background);
   border-radius: 4px;
-  color: #fff;
+  color: var(--color-black);
   padding: 0.5rem;
   font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.4s, color 0.4s;
+  transition: background-color 0.4s, color 0.4s, transform 0.4s;
 }
 
 #navbar form button:hover {
-  background-color: #ffffff;
-  color: #5e17eb;
+  background-color: var(--color-white);
+  color: var(--color-purple-bold);
+  transform: scale(1.04);
 }
 
 .user-submit-icon {
