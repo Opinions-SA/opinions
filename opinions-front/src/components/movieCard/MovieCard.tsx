@@ -9,9 +9,10 @@ const imageUrl = import.meta.env.VITE_IMG;
 interface MovieCardProps {
   streamingList: Streaming[];
   key: string;
+  showLink: boolean;
 }
 
-const MovieCard = ({ streamingList, key }: MovieCardProps) => {
+const MovieCard = ({ streamingList, key, showLink}: MovieCardProps) => {
   if (!Array.isArray(streamingList) || streamingList.length === 0) {
     return <p>Nenhum dado de streamingList disponível.</p>;
   }
@@ -23,11 +24,17 @@ const MovieCard = ({ streamingList, key }: MovieCardProps) => {
           {streamingList.map((film, index) => (
             <>
               <div key={index.toString()} className={`film-item`}>
-                <Link to={film ? `/${film.media_type}/${film.id}` : "#"}>
-                  {film.poster_path && (
+                {showLink ? (
+                  <Link to={film ? `/${film.media_type}/${film.id}` : "#"}>
+                    {film.poster_path && (
+                      <img src={imageUrl + film.poster_path} alt={film.title} />
+                    )}
+                  </Link>
+                ) : (
+                  film.poster_path && (
                     <img src={imageUrl + film.poster_path} alt={film.title} />
-                  )}
-                </Link>
+                  )
+                )}
               </div>
               <div className="card-title">
                 <h2>{film.title}</h2>
