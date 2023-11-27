@@ -7,18 +7,17 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
-import { Streaming } from "../interface/Streaming";
-
 import MovieCard from "../components/movieCard/MovieCard";
 
 import "../styles/Movies.css";
 import UserReview from "../components/userReview/UserReview";
+import { Movie } from "../interface/Movie";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 
 const MoviePage = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState<Streaming | null>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
 
   const getMovie = async (url: RequestInfo | URL) => {
@@ -29,7 +28,7 @@ const MoviePage = () => {
       },
     };
     const res = await fetch(url, options);
-    const data: Streaming = await res.json();
+    const data: Movie = await res.json();
     setMovie(data);
   };
 

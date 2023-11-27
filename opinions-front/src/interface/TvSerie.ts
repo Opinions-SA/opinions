@@ -85,4 +85,5 @@ export interface TvSerie {
     networks: NetworkDto[];
     created_by: CreatedByDto[];
     media_type: string;
+    trailer: string;
 }
