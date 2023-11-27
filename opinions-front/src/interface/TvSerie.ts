@@ -57,6 +57,21 @@ export interface CreatedByDto {
     credit_id: string;
 }
 
+export interface CastDto {
+    adult: boolean;
+    gender: number;
+    id: BigInteger;
+    knownForDepartment: string;
+    name: string;
+    originalName: string;
+    popularity: number;
+    profilePath: string;
+    castId: number;
+    character: string;
+    creditId: string;
+    order: number;
+}
+
 export interface TvSerie {
     id: BigInteger;
     name: string;
@@ -85,5 +100,8 @@ export interface TvSerie {
     networks: NetworkDto[];
     created_by: CreatedByDto[];
     media_type: string;
+    cast: CastDto[]
     trailer: string;
 }
+
+export default TvSerie;
