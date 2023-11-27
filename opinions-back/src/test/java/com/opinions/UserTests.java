@@ -29,7 +29,7 @@ public class UserTests {
 
     @Test
     public void testGetUser() {
-        // Esperar o que vai ser da função getByFilter
+        // A função getByFilter ainda não recebeu um parametro
     }
 
     @Test

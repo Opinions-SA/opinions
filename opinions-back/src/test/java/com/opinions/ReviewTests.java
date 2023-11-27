@@ -32,7 +32,7 @@ public class ReviewTests {
 
     @Test
     public void testGetReview() {
-        // Esperar o que vai ser da função getByFilter
+        // A função getByFilter ainda não recebeu um parametro
     }
 
     @Test
