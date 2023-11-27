@@ -1,21 +1,12 @@
 package com.opinions.controller;
 
-import com.opinions.dto.AuthenticationDto;
-import com.opinions.dto.AuthResponseDto;
-import com.opinions.dto.TokenDto;
-import com.opinions.dto.UserDto;
-import com.opinions.dto.UserResponseDto;
-import com.opinions.dto.UserRole;
-import com.opinions.dto.PasswordChangeDto;
+import com.opinions.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.opinions.entities.User;
 import com.opinions.infra.security.TokenService;
@@ -23,6 +14,7 @@ import com.opinions.repository.UserRepository;
 
 import jakarta.validation.Valid;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @RestController
@@ -70,6 +62,35 @@ public class AuthenticationController {
             return ResponseEntity.ok(new AuthResponseDto(new UserResponseDto((User) this.repository.findByUsername(tokenService.validateToken(token.getToken()))), token.getToken(), "Valid token!"));
         } catch (RuntimeException exception){
             return ResponseEntity.badRequest().body(new AuthResponseDto(null, null, "Invalid token!"));
+        }
+    }
+
+    @PostMapping("/field/{field}")
+    public ResponseEntity<FieldResponseDto> validateField(@PathVariable String field, @RequestBody FieldDto data) {
+        try {
+            if (data.getValue() == null || data.getValue().isEmpty()) throw new IllegalArgumentException("Invalid value!");
+            if (!Arrays.asList("email", "username", "phone", "cpf").contains(field)) throw new IllegalArgumentException("Invalid field!");
+            Boolean response = false;
+
+            switch (field) {
+                case "email":
+                    response = !this.repository.existsByEmail(data.getValue());
+                    break;
+                case "username":
+                    response = !this.repository.existsByUsername(data.getValue());
+                    break;
+                case "phone":
+                    response = !this.repository.existsByPhone(data.getValue());
+                    break;
+                case "cpf":
+                    response = !this.repository.existsByCpf(data.getValue());
+                    break;
+            }
+
+            return ResponseEntity.ok(new FieldResponseDto(response, "Validated field!"));
+
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(new FieldResponseDto(false, exception.getMessage()));
         }
     }
 
