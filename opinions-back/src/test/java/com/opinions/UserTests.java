@@ -34,12 +34,12 @@ public class UserTests {
 
     @Test
     public void testLoginUser() {
+        String email = "john@email.com";
         User registeredUser = new User();
-        registeredUser.setEmail("john@email.com");
+        registeredUser.setEmail(email);
         registeredUser.setPassword("password123");
 
-        Mockito.when(userRepository.findByEmail("john@email.com")).thenReturn(registeredUser);
-        String email = "john@email.com";
+        Mockito.when(userRepository.findByEmail(email)).thenReturn(registeredUser);
         User foundUser = userRepository.findByEmail(email);
 
         assertNotNull(foundUser);
