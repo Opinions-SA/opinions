@@ -57,8 +57,7 @@ const MoviePage = () => {
           <div className="card-container">
             <div className="card-content">
               <MovieCard
-                streamingList={[movie]}
-                key={movie.id.toString()}
+                streaming={movie}
                 showLink={false}
               />
               <div className="infos-container">

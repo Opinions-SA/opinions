@@ -50,7 +50,7 @@ const MoviesGrid = ({ gridData }: MoviesGridProps) => {
       <Slider {...settings}>
         {gridData.map((film) => (
           <div key={film.id.toString()}>
-            <MovieCard streamingList={[film]} showLink={true} />
+            <MovieCard streaming={film} showLink={true} />
           </div>
         ))}
       </Slider>
