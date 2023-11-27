@@ -14,6 +14,7 @@ import UserReview from "../components/userReview/UserReview";
 import { Movie } from "../interface/Movie";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
+const imageUrl = import.meta.env.VITE_IMG;
 
 const MoviePage = () => {
   const { id } = useParams();
@@ -80,6 +81,47 @@ const MoviePage = () => {
                       <BsHourglassSplit /> Runtime
                     </h3>
                     <p>{movie.runtime} minutes</p>
+                  </div>
+                  <div className="info">
+                    <h3>
+                      <BsHourglassSplit /> Vote Average
+                    </h3>
+                    <p>{movie.vote_average} votes</p>
+                  </div>
+                  <div className="info">
+                    <h3>
+                      <BsHourglassSplit /> Vote Count
+                    </h3>
+                    <p>{movie.vote_count} votes</p>
+                  </div>
+                  <div className="info">
+                    <h3>
+                      <BsWallet2 /> Genres
+                    </h3>
+                    <div className="genres">
+                      {movie.genres.map((genre) => (
+                        <p className="genre"> {genre.name}</p>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="info">
+                    <h3>
+                      <BsHourglassSplit /> Status
+                    </h3>
+                    <p>{movie.status}</p>
+                  </div>
+                  <div className="info">
+                    <h3>
+                      <BsWallet2 /> Production Companies
+                    </h3>
+                    <div className="genres">
+                      {movie.production_companies.map((companie) => (
+                        <p className="genre">
+                          {" "}
+                          <img src={imageUrl + companie.logo_path} />
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className="info description">
