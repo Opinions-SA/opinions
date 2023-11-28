@@ -1,15 +1,6 @@
 .stream-container {
   width: 100%;
-  max-height: auto;
   margin-bottom: 20px;
-  background-color: #5cb8e4;
-  justify-content: center;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.493);
   z-index: 2;
 }
-
-.stream-container img {
-  max-width: 100%;
-  max-height: auto;
-  display: flex;
-} 

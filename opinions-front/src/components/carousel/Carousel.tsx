@@ -23,11 +23,18 @@ const Carousel = ({ gridData }: CarouselProps) => {
 
   useEffect(() => {
     function handleResize(){
-      if(window.innerWidth < 1700) {
-        setSlidePerView(4);
-      }else {
+      if (window.innerWidth > 2100){
+        setSlidePerView(7);
+
+      }
+      else if (window.innerWidth < 1900){
+        setSlidePerView(5);
+      }
+      else {
         setSlidePerView(6);
-      } 
+      }
+
+      
     }
     handleResize();
 
@@ -43,8 +50,7 @@ const Carousel = ({ gridData }: CarouselProps) => {
       <div className="carousel-container">
         <h1>Top Releases</h1>
         <Swiper className="carousel-cards"
-        slidesPerView={6}
-        pagination={{clickable: true}}
+        slidesPerView={SlidePerView}
         navigation
         >
           {gridData.map((film, index) => (
