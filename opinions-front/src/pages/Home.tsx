@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MoviesGrid from "../components/moviesGrid/MoviesGrid";
+import Carousel from "../components/carousel/Carousel";
 import Header from "../components/header/Header";
 
 import { Streaming } from "../interface/Streaming";
@@ -33,7 +33,7 @@ const Home = () => {
         </div>
         <div className="movies-container">
             {trendingStreaming.length === 0 ? <p>Carregando...</p> : (
-              <MoviesGrid gridData={trendingStreaming} />
+              <Carousel gridData={trendingStreaming} />
             )}
         </div>
     </div>

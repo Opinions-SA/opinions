@@ -28,14 +28,14 @@ const Header = ({ streaming }: HeaderProps) => {
   const currentImage = streaming[currentImageIndex];
 
   return (
-    <div className='stream-container'>
+    <div className='stream-container' style={{ width: '100%', maxHeight: '800px', objectFit: 'cover' }}>
       <Link to={currentImage ? `/${currentImage.media_type}/${currentImage.id}` : '#'}>
         {currentImage && currentImage.backdrop_path && (
           <img
             className="header-stream-image"
             src={`${baseUrl}${currentImage.backdrop_path}`}
             alt={currentImage.title}
-            style={{ width: '100%', maxHeight: '600px', objectFit: 'cover' }}
+            style={{ width: '100%', maxHeight: '100%', objectFit: 'cover' }}
           />
         )}
       </Link>

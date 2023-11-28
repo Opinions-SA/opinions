@@ -1,0 +1,28 @@
+.carousel-grid-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.carousel-wrapper {
+  margin-bottom: 3px;
+}
+
+.carousel-cards {
+  overflow: auto;
+  display: flex;
+}
+
+.carousel-card {
+  width: 200px;
+  margin-right: 20px;
+}
+
+.carousel-card img {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.carousel-card img:hover {
+  transform: scale(1.06);
+}

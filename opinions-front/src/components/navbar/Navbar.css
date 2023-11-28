@@ -1,15 +1,3 @@
-:root {
-  --color-black: #181818;      
-  --color-grey-background: #202020; 
-  --color-grey: #4e4e4e; 
-  --color-grey-2:rgba(133, 133, 133, 0.418); 
-  --color-purple-bold: #5328c0;
-  --color-purple: #8758FF;   
-  --color-purple-hover: #a37eff;     
-  --color-blue: #5CB8E4;      
-  --color-white: #F2F2F2;     
-}
-
 #navbar {
   display: flex;
   justify-content: space-between;

@@ -1,0 +1,15 @@
+.search-container {
+    padding: 20px 10px;
+}
+
+.search-content-grid {
+    color: var(--color-black);
+    background-color: var(--color-grey-2);
+    border-radius: 7px;
+    margin-top: 10px;
+    padding: 20px 25px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
