@@ -1,15 +1,35 @@
 .carousel-grid-container {
   width: 70%;
   margin: 0 auto;
+  user-select: none;
 }
 
-.carousel-wrapper {
-  margin-bottom: 3px;
+.carousel-container {
+  padding-top: 15px;
 }
 
 .carousel-cards {
-  overflow: auto;
   display: flex;
+  overflow-y: hidden;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.carousel-cards::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 8px;
+}
+
+.carousel-cards::-webkit-scrollbar-track {
+  background-color: var(--color-black);
+  border-radius: 8px;
+}
+
+.carousel-cards::-webkit-scrollbar {
+  height: 8px;
+  width: 6px;
+  background: #F4F4F4;
+  border-radius: 8px;
 }
 
 .carousel-card {
