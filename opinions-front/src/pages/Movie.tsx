@@ -7,8 +7,6 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
-import MovieCard from "../components/movieCard/MovieCard";
-
 import "../styles/Movies.css";
 import UserReview from "../components/userReview/UserReview";
 import { Movie } from "../interface/Movie";
@@ -55,91 +53,99 @@ const MoviePage = () => {
     <div className={`movie-page ${showUserReview ? "blur-background" : ""}`}>
       {movie && (
         <>
-          <div className="card-container">
-            <div className="card-content">
-              <MovieCard
-                streaming={movie}
-                showLink={false}
-              />
-              <div className="infos-container">
-                <p className="tagline">{movie.tagline}</p>
-                <div className="infos">
-                  <div className="info">
-                    <h3>
+          <div className="card-container-movies">
+            <div className="card-content-movies">
+              <div className="poster-content-movie">
+                {movie.poster_path && (
+                  <img
+                    className="poster-movie-image"
+                    src={imageUrl + movie.poster_path}
+                    alt="movie.title"
+                    style={{ width: "100%", maxHeight: "100%" }}
+                  />
+                )}
+              </div>
+              <div className="info-movies-container">
+                <h1 className="movie-title">{movie.title}</h1>
+                <p className="movie-tag">{movie.tagline}</p>
+                <div className="info-movies">
+                  <div className="info-card">
+                    <h2>
                       <BsWallet2 /> Budget
-                    </h3>
+                    </h2>
                     <p>{formatCurrency(movie.budget)}</p>
                   </div>
-                  <div className="info">
-                    <h3>
+                  <div className="info-card">
+                    <h2>
                       <BsGraphUp /> Revenue
-                    </h3>
+                    </h2>
                     <p>{formatCurrency(movie.revenue)}</p>
                   </div>
-                  <div className="info">
-                    <h3>
+                  <div className="info-card">
+                    <h2>
                       <BsHourglassSplit /> Runtime
-                    </h3>
+                    </h2>
                     <p>{movie.runtime} minutes</p>
                   </div>
-                  <div className="info">
-                    <h3>
-                      <BsHourglassSplit /> Vote Average
-                    </h3>
-                    <p>{movie.vote_average} votes</p>
-                  </div>
-                  <div className="info">
-                    <h3>
+                  <div className="info-card">
+                    <h2>
                       <BsHourglassSplit /> Vote Count
-                    </h3>
+                    </h2>
                     <p>{movie.vote_count} votes</p>
                   </div>
-                  <div className="info">
-                    <h3>
+                  <div className="info-card">
+                    <h2>
                       <BsWallet2 /> Genres
-                    </h3>
-                    <div className="genres">
+                    </h2>
+                    <div className="genres-movies">
                       {movie.genres.map((genre) => (
-                        <p className="genre"> {genre.name}</p>
+                        <p className="genre-movie"> {genre.name}</p>
                       ))}
                     </div>
                   </div>
-                  <div className="info">
-                    <h3>
+                  <div className="info-card">
+                    <h2>
                       <BsHourglassSplit /> Status
-                    </h3>
+                    </h2>
                     <p>{movie.status}</p>
                   </div>
-                  <div className="info">
-                    <h3>
+                  <div className="info-card-companies">
+                    <h2>
                       <BsWallet2 /> Production Companies
-                    </h3>
-                    <div className="genres">
+                    </h2>
+                    <div className="companie-movie-container">
                       {movie.production_companies.map((companie) => (
-                        <p className="genre">
-                          {" "}
-                          <img src={imageUrl + companie.logo_path} />
-                        </p>
+                        <div className="companie-movie">
+                          <img
+                            className="companie-image"
+                            src={imageUrl + companie.logo_path}
+                          />
+                        </div>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div className="info description">
-                  <h3>
+                <div className="info-description">
+                  <h2>
                     <BsFillFileEarmarkTextFill /> Description
-                  </h3>
+                  </h2>
                   <p>{movie.overview}</p>
                 </div>
+                <div className="review-button-container">
+                <button
+                  className="open-review-button"
+                  onClick={toggleUserReview}
+                >
+                  New Review
+                </button>
+                </div>
+                {showUserReview && (
+                  <div className="review-overlay">
+                    <UserReview onClose={toggleUserReview} />
+                  </div>
+                )}
               </div>
             </div>
-            <button className="open-review-button" onClick={toggleUserReview}>
-              Abrir Avaliação
-            </button>
-            {showUserReview && (
-              <div className="review-overlay">
-              <UserReview onClose={toggleUserReview} />
-            </div>
-            )}
           </div>
         </>
       )}

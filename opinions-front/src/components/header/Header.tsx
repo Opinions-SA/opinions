@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Streaming } from "../../interface/Streaming";
-import { Link } from "react-router-dom";
 
 import { register } from "swiper/element/bundle";
 import { Swiper, SwiperSlide } from "swiper/react";

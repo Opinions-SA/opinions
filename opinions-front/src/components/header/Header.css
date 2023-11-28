@@ -1,6 +1,5 @@
 .stream-container {
   width: 100%;
   margin-bottom: 20px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.493);
   z-index: 2;
 }

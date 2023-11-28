@@ -5,6 +5,7 @@
   padding: 1rem 2rem;
   background-color: var(--color-white);
   color: var(--color-black);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.493);
 }
 
 #navbar h2 a {
