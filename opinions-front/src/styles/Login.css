@@ -1,3 +1,11 @@
+.login-inputs input.input-error {
+  border: 1px solid red !important;
+}
+
+.login-inputs input.input-valid {
+  border: 1px solid green !important;
+}
+
 .login-container {
   width: 100%;
   height: 100vh;
@@ -55,7 +63,7 @@
 }
 
 .login-inputs input:focus,
-.login-inputs .login-button:focus {
+.login-inputs .login-button:active {
   background-color: #f1f1f1; 
   transform: scale(1.02); 
 }
