@@ -9,6 +9,7 @@ import Movie from './pages/Movie.tsx';
 import TvSerie from './pages/TvSerie.tsx';
 import Login from './pages/Signin.tsx';
 import Register from './pages/Signup.js';
+import Profile from './pages/Profile.tsx';
 
 import { AuthProvider } from './contexts/Auth/AuthProvider.tsx';
 import { RequireAuth } from './contexts/Auth/RequireAuth.tsx';
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/movie/:id' element={<RequireAuth><Movie /></RequireAuth>} />
+            <Route path='/profile' element={<RequireAuth><Profile/></RequireAuth>} />
             {/* <Route path='/movie/:id' element={<Movie />}/> */}
             <Route path='/tv/:id' element={<TvSerie />} />
             <Route path='search' element={<Search />} />
