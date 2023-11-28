@@ -21,7 +21,7 @@ const Header = ({ streaming }: HeaderProps) => {
   const [SlidePerView] = useState(1);
 
   return (
-    <div>
+    <div className="header-content">
       <Swiper className="stream-container"
       slidesPerView={SlidePerView}
       navigation

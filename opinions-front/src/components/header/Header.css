@@ -1,3 +1,9 @@
+.header-content {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
 .stream-container {
   width: 100%;
   margin-bottom: 20px;
