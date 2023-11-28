@@ -24,6 +24,7 @@
 
 .info-series-container {
   padding: 0 20px 0 0;
+  width: 50%;
 }
 
 .info-series-container h1 {
@@ -64,6 +65,26 @@
   display: flex;
   margin-top: 5px;
   max-height: 50px;
+}
+
+.info-card-network {
+  display: flex;
+  flex-direction: column;
+  border-radius: 7px;
+  background-color: #c4c4c4;
+  padding: 10px;
+  font-weight: bold;
+  max-height: auto;
+  padding-left: 15px;
+  margin-top: 20px;
+  margin-right: 30px;
+}
+
+.network-serie-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7%;
+  margin-left: 20px;
 }
 
 .info-description {

@@ -97,22 +97,6 @@ const TvSeriePage = () => {
                   </div>
                   <div className="info-card">
                     <h3>
-                      <BsWallet2 /> Networks
-                    </h3>
-                    <div className="genres-series">
-                      {tvSerie.networks.map((network) => (
-                        <p className="genre">
-                          {" "}
-                          <img
-                            className="network-image"
-                            src={imageUrl + network.logo_path}
-                          />
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="info-card">
-                    <h3>
                       <BsHourglassSplit /> Season number
                     </h3>
                     <p>{tvSerie.number_of_seasons}</p>
@@ -124,6 +108,19 @@ const TvSeriePage = () => {
                     <p>{tvSerie.number_of_episodes}</p>
                   </div>
                 </div>
+                <div className="info-card-network">
+                    <h3>
+                      <BsWallet2 /> Networks
+                    </h3>
+                    <div className="network-serie-container">
+                      {tvSerie.networks.map((network) => (
+                          <img
+                            className="network-image"
+                            src={imageUrl + network.logo_path}
+                          />
+                      ))}
+                    </div>
+                  </div>
                 <div className="info-description">
                   <h3>
                     <BsFillFileEarmarkTextFill /> Description
