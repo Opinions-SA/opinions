@@ -15,7 +15,6 @@ const Carousel = ({ gridData }: CarouselProps) => {
     <div className="carousel-grid-container">
       <div className="carousel-container">
         <h1>Top Releases</h1>
-        <div className="carousel-wrapper">
           <div
             className="carousel-cards" >
             {gridData.map((film, index) => (
@@ -29,7 +28,6 @@ const Carousel = ({ gridData }: CarouselProps) => {
               </div>
             ))}
           </div>
-      </div>
     </div>
     </div>
   );

@@ -55,7 +55,7 @@
 }
 
 .login-inputs input:focus,
-.login-inputs .login-button:focus {
+.login-inputs .login-button:active {
   background-color: #f1f1f1; 
   transform: scale(1.02); 
 }
