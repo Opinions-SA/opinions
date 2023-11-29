@@ -45,5 +45,6 @@ public class SeriesDto {
     private List<NetworkDto> networks;
     private List<CreatedByDto> created_by;
     private String media_type;
+    private List<CastDto> cast;
     private String trailer;
 }

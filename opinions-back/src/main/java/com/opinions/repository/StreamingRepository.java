@@ -4,13 +4,10 @@ import com.opinions.client.StreamingMovieClientService;
 import com.opinions.client.StreamingSearchClientService;
 import com.opinions.client.StreamingTrendingClientService;
 import com.opinions.client.StreamingTvSerieClientService;
-import com.opinions.dto.MovieDto;
-import com.opinions.dto.StreamingTempDto;
-import com.opinions.dto.TmdbTrailerResult;
+import com.opinions.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.opinions.dto.SeriesDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -59,6 +56,14 @@ public class StreamingRepository {
             return movieClientService.getMovieTrailer(API_TOKEN, id);
         } else {
             return tvSerieClientService.getTvSerieTrailer(API_TOKEN, id);
+        }
+    }
+
+    public TmdbCastResult getCast(Integer id, Boolean movie) {
+        if (movie) {
+            return movieClientService.getMovieCast(API_TOKEN, id);
+        } else {
+            return tvSerieClientService.getTvSerieCast(API_TOKEN, id);
         }
     }
     

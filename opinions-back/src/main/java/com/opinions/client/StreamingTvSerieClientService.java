@@ -1,6 +1,7 @@
 package com.opinions.client;
 
 import com.opinions.dto.SeriesDto;
+import com.opinions.dto.TmdbCastResult;
 import com.opinions.dto.TmdbTrailerResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -22,6 +23,12 @@ public interface StreamingTvSerieClientService {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    TmdbTrailerResult getTvSerieTrailer(@RequestHeader("Authorization") String token, @PathVariable("serie") Integer movie);
+    TmdbTrailerResult getTvSerieTrailer(@RequestHeader("Authorization") String token, @PathVariable("serie") Integer serie);
+
+    @RequestMapping(value = "/{serie}/credits",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    TmdbCastResult getTvSerieCast(@RequestHeader("Authorization") String token, @PathVariable("serie") Integer serie);
     
 }

@@ -1,3 +1,17 @@
+:root {
+  --color-black: #181818;
+  --color-grey-background: #292929;
+  --color-grey: #4e4e4e;
+  --color-grey-2: rgba(133, 133, 133, 0.418);
+  --color-purple-bold: #5328c0;
+  --color-purple-background: #8114ff;
+  --color-purple: #8758ff;
+  --color-purple-hover: #a37eff;
+  --color-blue: #5cb8e4;
+  --color-white: #f2f2f2;
+}
+
+
 * {
   font-family: Helvetica;
   margin: 0;
@@ -6,16 +20,16 @@
 }
 
 body {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--color-white);
+  color: var(--color-black);
 }
 
 a {
   text-decoration: none;
-  color: #bc4ef7;
+  color: var(--color-purple);
   transition: .5s;
 }
 
 a:hover {
-  color: #8600ce;
+  color: var(--color-purple-hover);
 }

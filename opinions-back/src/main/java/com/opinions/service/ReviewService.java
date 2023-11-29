@@ -3,6 +3,7 @@ package com.opinions.service;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.opinions.dto.*;
@@ -42,12 +43,18 @@ public class ReviewService {
         return repository.findAll().stream().map(ReviewResponseDto::new).toList();
     }
 
-    public List<ReviewStreamingResponseDto> getByUser(HttpServletRequest request) {
+    public List<ReviewStreamingResponseDto> getByUser(HttpServletRequest request, Optional<Long> streamingId, Optional<String> streamingType) {
         UserDto user = userService.getByToken(request);
-        List<ReviewDto> reviews = this.repository.findByUser(new User(user)).stream()
-                .map(review -> modelMapper.map(review, ReviewDto.class))
-                .collect(Collectors.toList());
-
+        List<ReviewDto> reviews;
+        if (streamingId.isPresent() && streamingType.isPresent()) {
+            reviews = this.repository.findByUserAndStreamingIdAndStreamingType(new User(user), streamingId.get(), streamingType.get()).stream()
+                    .map(review -> modelMapper.map(review, ReviewDto.class))
+                    .collect(Collectors.toList());
+        } else {
+            reviews = this.repository.findByUser(new User(user)).stream()
+                    .map(review -> modelMapper.map(review, ReviewDto.class))
+                    .collect(Collectors.toList());
+        }
         List<ReviewStreamingResponseDto> response = new ArrayList<>();
 
         for (ReviewDto review: reviews) {

@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BiCameraMovie, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 
-import "../styles/Navbar.css";
-import { AuthContext } from "../contexts/Auth/AuthContext";
+import "./Navbar.css";
+import { AuthContext } from "../../contexts/Auth/AuthContext";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);

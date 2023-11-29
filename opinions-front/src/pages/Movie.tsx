@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
   BsGraphUp,
@@ -7,17 +7,24 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
-import { Streaming } from "../interface/Streaming";
-
-import MovieCard from "../components/MovieCard";
-
 import "../styles/Movies.css";
+import UserReview from "../components/userReview/UserReview";
+import { Movie } from "../interface/Movie";
+import { AuthContext } from "../contexts/Auth/AuthContext";
+import { Review } from "../interface/Review";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
+const imageUrl = import.meta.env.VITE_IMG;
 
 const MoviePage = () => {
+  const auth = useContext(AuthContext);
+  
   const { id } = useParams();
-  const [movie, setMovie] = useState<Streaming | null>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [showUserReview, setShowUserReview] = useState(false);
+  const [review, setReview] = useState<Review | null>(null);
+  
+  const [userToken, setUserToken] = useState<string>(""); 
 
   const getMovie = async (url: RequestInfo | URL) => {
     const options: RequestInit = {
@@ -27,7 +34,7 @@ const MoviePage = () => {
       },
     };
     const res = await fetch(url, options);
-    const data: Streaming = await res.json();
+    const data: Movie = await res.json();
     setMovie(data);
   };
 
@@ -39,48 +46,135 @@ const MoviePage = () => {
   };
 
   useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const response = await auth.tokenGetter();
+        setUserToken(response ? response.toString : "");
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
+    };
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
     const movieUrl: string = `${moviesApiURL}/streaming/movie/${id}`;
     getMovie(movieUrl);
-  }, [id]);
+    if (userToken && id) {
+      const getReview = async () => {
+        try {
+          const reviewResponse = await auth.reviewGet(userToken, parseInt(id, 10), "movie");
+          setReview(reviewResponse);
+        } catch (error) {
+          console.error('Error fetching review:', error);
+        }
+      };
+      getReview();
+    }
+  }, [id, userToken]);
+
+  const toggleUserReview = () => {
+    setShowUserReview(!showUserReview);
+    const isReviewOpen = !showUserReview;
+    document.body.classList.toggle("blur-background", isReviewOpen);
+  };
 
   return (
-    <div className="movie-page">
+    <div className={`movie-page ${showUserReview ? "blur-background" : ""}`}>
       {movie && (
         <>
-          <div className="card-container">
-            <MovieCard
-              streaming={movie}
-              key={movie.id.toString()}
-              showLink={false}
-            />
-          </div>
-          <div className="infos-container">
-            <p className="tagline">{movie.tagline}</p>
-            <div className="infos">
-              <div className="info">
-                <h3>
-                  <BsWallet2 /> Budget
-                </h3>
-                <p>{formatCurrency(movie.budget)}</p>
+          <div className="card-container-movies">
+            <div className="card-content-movies">
+              <div className="poster-content-movie">
+                {movie.poster_path && (
+                  <img
+                    className="poster-movie-image"
+                    src={imageUrl + movie.poster_path}
+                    alt="movie.title"
+                    style={{ width: "100%", maxHeight: "100%" }}
+                  />
+                )}
               </div>
-              <div className="info">
-                <h3>
-                  <BsGraphUp /> Revenue
-                </h3>
-                <p>{formatCurrency(movie.revenue)}</p>
+              <div className="info-movies-container">
+                <h1 className="movie-title">{movie.title}</h1>
+                <p className="movie-tag">{movie.tagline}</p>
+                <div className="info-movies">
+                  <div className="info-card">
+                    <h2>
+                      <BsWallet2 /> Budget
+                    </h2>
+                    <p>{formatCurrency(movie.budget)}</p>
+                  </div>
+                  <div className="info-card">
+                    <h2>
+                      <BsGraphUp /> Revenue
+                    </h2>
+                    <p>{formatCurrency(movie.revenue)}</p>
+                  </div>
+                  <div className="info-card">
+                    <h2>
+                      <BsHourglassSplit /> Runtime
+                    </h2>
+                    <p>{movie.runtime} minutes</p>
+                  </div>
+                  <div className="info-card">
+                    <h2>
+                      <BsHourglassSplit /> Vote Count
+                    </h2>
+                    <p>{movie.vote_count} votes</p>
+                  </div>
+                  <div className="info-card">
+                    <h2>
+                      <BsWallet2 /> Genres
+                    </h2>
+                    <div className="genres-movies">
+                      {movie.genres.map((genre) => (
+                        <p className="genre-movie"> {genre.name}</p>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="info-card">
+                    <h2>
+                      <BsHourglassSplit /> Status
+                    </h2>
+                    <p>{movie.status}</p>
+                  </div>
+                  <div className="info-card-companies">
+                    <h2>
+                      <BsWallet2 /> Production Companies
+                    </h2>
+                    <div className="companie-movie-container">
+                      {movie.production_companies.map((companie) => (
+                        <div className="companie-movie">
+                          <img
+                            className="companie-image"
+                            src={imageUrl + companie.logo_path}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="info-description">
+                  <h2>
+                    <BsFillFileEarmarkTextFill /> Description
+                  </h2>
+                  <p>{movie.overview}</p>
+                </div>
+                <div className="review-button-container">
+                <button
+                  className="open-review-button"
+                  onClick={toggleUserReview}
+                >
+                  New Review
+                </button>
+                </div>
+                {showUserReview && id && (
+                  <div className="review-overlay">
+                    <UserReview onClose={toggleUserReview} data={{id: id, type: "movie" }}/>
+                  </div>
+                )}
               </div>
-              <div className="info">
-                <h3>
-                  <BsHourglassSplit /> Runtime
-                </h3>
-                <p>{movie.runtime} minutes</p>
-              </div>
-            </div>
-            <div className="info description">
-              <h3>
-                <BsFillFileEarmarkTextFill /> Description
-              </h3>
-              <p>{movie.overview}</p>
             </div>
           </div>
         </>

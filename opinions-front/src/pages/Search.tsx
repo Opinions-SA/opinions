@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/movieCard/MovieCard";
+
+import '../styles/Search.css'
 
 import { Streaming } from "../interface/Streaming";
 
@@ -26,17 +28,21 @@ const Search = () => {
 
   useEffect(() => {
     if (query) {
-      const searchWithQueryUrl: string = `${searchURL}/streaming/search/movie/${query}`;
+      const searchWithQueryUrl: string = `${searchURL}/streaming/search/multi/${query}`;
       getStreamings(searchWithQueryUrl);
     }
   }, [query]);
 
   return (
-    <div className="container">
-      <h2>Results to: <span className="query-text">{query}</span></h2>
-      <div className="movies-container">
-        {streamings.length === 0 ? <p>Loading...</p> : (
-          streamings.map((streaming) => <MovieCard key={streaming.id.toString()} streaming={streaming} showLink={true} />)
+    <div className="search-container">
+      <h2>Resultados para: <span className="query-text">{query}</span></h2>
+      <div className="search-content-grid">
+        {streamings.length === 0 ? <p>Carregando...</p> : (
+          streamings.map((film, index) => (
+            <div key={film.id.toString() + index} className="stream-search-container">
+              <MovieCard streaming={film} showLink={true} />
+            </div>
+          ))
         )}
       </div>
     </div>

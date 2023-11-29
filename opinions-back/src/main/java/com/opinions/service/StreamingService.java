@@ -1,11 +1,6 @@
 package com.opinions.service;
 
-import com.opinions.dto.MovieDto;
-import com.opinions.dto.SeriesDto;
-import com.opinions.dto.StreamingDto;
-import com.opinions.dto.StreamingTempDto;
-import com.opinions.dto.TmdbTrailerResult;
-import com.opinions.dto.TrailerDto;
+import com.opinions.dto.*;
 import com.opinions.repository.StreamingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
@@ -30,13 +25,20 @@ public class StreamingService {
     public MovieDto getMovie(Integer movie) {
         MovieDto result = modelMapper.map(repository.getMovie(movie), MovieDto.class);
         result.setTrailer(getTrailerLink(movie, true));
+        result.setCast(getCast(movie, true));
         return result;
     }
 
     public SeriesDto getTvSerie(Integer serie) {
         SeriesDto result = modelMapper.map(repository.getTvSerie(serie), SeriesDto.class);;
         result.setTrailer(getTrailerLink(serie, false));
+        result.setCast(getCast(serie, false));
         return result;
+    }
+
+    public List<CastDto> getCast (Integer id, boolean movie) {
+        TmdbCastResult castDto = modelMapper.map(repository.getCast(id, movie), TmdbCastResult.class);
+        return castDto.getCast();
     }
 
     public String getTrailerLink (Integer id, Boolean movie) {

@@ -2,7 +2,6 @@ package com.opinions.repository;
 
 import com.opinions.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -23,5 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
 
     Boolean existsByCpf(String cpf);
+
+    Boolean existsByPhone(String phone);
 
 }

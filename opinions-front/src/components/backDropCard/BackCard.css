@@ -1,0 +1,36 @@
+.back-card {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.back-item {
+    display: flex;
+    width: 70%;
+}
+
+.backdrop-image {
+    max-width: 100%;
+    max-height: auto;
+    display: flex;
+}
+
+.backcard-title {
+    align-items:baseline;
+    background-color: var(--color-grey);
+    width: 60%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    color: white;
+    box-shadow: 0 0 15px #000;
+}
+
+.backcard-title h1 {
+    font-size: 60px;
+}
+
+.backcard-title p {
+    font-size: 22px;
+}

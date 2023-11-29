@@ -1,19 +1,20 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { BiSolidUserCircle } from "react-icons/bi";
 
 import "../styles/Login.css";
 
-export const Login = () => {
+const Login = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    if (username && password) {
-      const isLogged = await auth.signin(username, password);
+    if (email && password) {
+      const isLogged = await auth.signin(email, password);
       if (isLogged) {
         navigate("/");
       }
@@ -22,15 +23,13 @@ export const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="login-title">
-        <h2>Login</h2>
-      </div>
       <div className="login-inputs">
+      <BiSolidUserCircle className="user-icon"/>
         <input
           type="text"
-          value={username}
-          placeholder="Write your username"
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          placeholder="Write your email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
@@ -38,8 +37,15 @@ export const Login = () => {
           placeholder="Write your password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button className="login-button" onClick={handleLogin}>Login</button>
+        <div className="signup-content">
+          <label>Don't have an account yet?</label>
+          <button className="signup-button" onClick={(() => {navigate("/register")})}>Create now</button>
+        </div>
+        
       </div>
     </div>
   );
 };
+
+export default Login;
