@@ -38,9 +38,9 @@ const Search = () => {
       <h2>Resultados para: <span className="query-text">{query}</span></h2>
       <div className="search-content-grid">
         {streamings.length === 0 ? <p>Carregando...</p> : (
-          streamings.map((streaming) => (
-            <div key={streaming.id.toString()} className="movie-card-grid">
-              <MovieCard streaming={streaming} showLink={true} />
+          streamings.map((film, index) => (
+            <div key={film.id.toString() + index} className="stream-search-container">
+              <MovieCard streaming={film} showLink={true} />
             </div>
           ))
         )}
