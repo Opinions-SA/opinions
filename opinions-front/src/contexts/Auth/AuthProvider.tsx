@@ -61,6 +61,10 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
         tokenSetter('');
     }
 
+    const tokenGetter = () => {
+        return localStorage.getItem('authToken');
+    }
+
     const tokenSetter = (token: string) => {
         setToken(token);
         localStorage.setItem('authToken', token);
@@ -76,8 +80,29 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
         return false;
     }
 
+    const reviewCreate = async (token: string, streamingId: number, streamingType: string, user: User, title: string, description: string, rate: number) => {
+        try {
+            const data = await api.reviewCreate(token,streamingId, streamingType, user, title, description, rate);
+            return data;
+        } catch (error: any) {
+            alert(error.response?.data?.message || "Erro desconhecido");
+        }
+        return null;
+    }
+
+    const reviewGet = async (token: string, streamingId: number, streamingType: string) => {
+        try {
+            const data = await api.reviewGet(token, streamingId, streamingType);
+            return data;
+        } catch (error: any) {
+            alert(error.response?.data?.message || "Erro desconhecido");
+        }
+        return null;
+    }
+
+
     return (
-        <AuthContext.Provider value={{ user, token, signin, signup, signout, validateField }}>
+        <AuthContext.Provider value={{ user, token, tokenGetter, signin, signup, signout, validateField, reviewCreate, reviewGet }}>
             {children}        
         </AuthContext.Provider>
     )

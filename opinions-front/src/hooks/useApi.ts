@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import { AuthResponse } from '../interface/AuthResponse';
 import { FieldResponse } from '../interface/FieldResponse';
+import { User } from '../interface/User';
+import { Review } from '../interface/Review';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API
@@ -12,6 +14,8 @@ interface AuthApi {
     signup: (username: string, email: string, password: string) => Promise<AuthResponse>;
     logout: (token: string) => Promise<AuthResponse>;
     validateField: (field: string, value: string) => Promise<Boolean>;
+    reviewCreate: (token: string, streamingId: number, streamingType: string, user: User, title: string, description: string, rate: number) => Promise<Review | null>;
+    reviewGet: (token: string, streamingId: number, streamingType: string) => Promise<Review | null>;
 }
 
 export const useApi = (): AuthApi => ({
@@ -34,5 +38,13 @@ export const useApi = (): AuthApi => ({
     validateField: async (field: string, value: string) => {
         const response: AxiosResponse<FieldResponse> = await api.post('/auth/field/' + field, { value });
         return response.data.field;
+    },
+    reviewCreate: async (token: string, streamingId: number, streamingType: string, user: User, title: string, description: string, rate: number) => {
+        const response: AxiosResponse<Review> = await api.post('/review', { streaming_id: streamingId, streaming_type: streamingType, user, title, description, rate}, { headers: {Authorization: token}});
+        return response.data;
+    },
+    reviewGet: async (token: string, streamingId: number, streamingType: string) => {
+        const response: AxiosResponse<Review[]> = await api.get('/review/user', { params: {streamingId, streamingType}, headers: {Authorization: token}});
+        return response.data[0];
     }
 });

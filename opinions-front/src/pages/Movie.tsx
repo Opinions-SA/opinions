@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
   BsGraphUp,
@@ -10,14 +10,21 @@ import {
 import "../styles/Movies.css";
 import UserReview from "../components/userReview/UserReview";
 import { Movie } from "../interface/Movie";
+import { AuthContext } from "../contexts/Auth/AuthContext";
+import { Review } from "../interface/Review";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;
 
 const MoviePage = () => {
+  const auth = useContext(AuthContext);
+  
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
+  const [review, setReview] = useState<Review | null>(null);
+  
+  const [userToken, setUserToken] = useState<string>(""); 
 
   const getMovie = async (url: RequestInfo | URL) => {
     const options: RequestInit = {
@@ -39,9 +46,32 @@ const MoviePage = () => {
   };
 
   useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const response = await auth.tokenGetter();
+        setUserToken(response ? response.toString : "");
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
+    };
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
     const movieUrl: string = `${moviesApiURL}/streaming/movie/${id}`;
     getMovie(movieUrl);
-  }, [id]);
+    if (userToken && id) {
+      const getReview = async () => {
+        try {
+          const reviewResponse = await auth.reviewGet(userToken, parseInt(id, 10), "movie");
+          setReview(reviewResponse);
+        } catch (error) {
+          console.error('Error fetching review:', error);
+        }
+      };
+      getReview();
+    }
+  }, [id, userToken]);
 
   const toggleUserReview = () => {
     setShowUserReview(!showUserReview);
@@ -139,9 +169,9 @@ const MoviePage = () => {
                   New Review
                 </button>
                 </div>
-                {showUserReview && (
+                {showUserReview && id && (
                   <div className="review-overlay">
-                    <UserReview onClose={toggleUserReview} />
+                    <UserReview onClose={toggleUserReview} data={{id: id, type: "movie" }}/>
                   </div>
                 )}
               </div>
