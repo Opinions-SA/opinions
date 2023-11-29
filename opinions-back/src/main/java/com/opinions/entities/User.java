@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private String cpf;
     private String birthday;
     private String password;
-    @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT '1'")
+    @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT 1")
     private Boolean active;
     private UserRole role;
     
