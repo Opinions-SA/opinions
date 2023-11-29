@@ -11,7 +11,6 @@ const UserReview = ({ onClose }: any) => {
   }, []);
 
   const handleClose = () => {
-    setIsVisible(false);
     onClose();
   };
 

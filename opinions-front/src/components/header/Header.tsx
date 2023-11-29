@@ -3,12 +3,14 @@ import { Streaming } from "../../interface/Streaming";
 
 import { register } from "swiper/element/bundle";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { CreativeEffectEvents } from "swiper/types/modules/effect-creative";
 
 register();
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import "swiper/css/effect-creative"
 
 import "./Header.css";
 import BackCard from "../backDropCard/BackCard";
@@ -25,9 +27,11 @@ const Header = ({ streaming }: HeaderProps) => {
       <Swiper className="stream-container"
       slidesPerView={SlidePerView}
       navigation
+      modules={[]}
+      pagination={{clickable: true}}
       > 
           {streaming.map((film, index) => (
-            <SwiperSlide key={film.id.toString() + index} className="carousel-card">
+            <SwiperSlide key={film.id.toString() + index}>
               <BackCard streaming={film} showLink={true} />
             </SwiperSlide>
           ))}   
