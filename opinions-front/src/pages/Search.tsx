@@ -28,7 +28,7 @@ const Search = () => {
 
   useEffect(() => {
     if (query) {
-      const searchWithQueryUrl: string = `${searchURL}/streaming/search/movie/${query}`;
+      const searchWithQueryUrl: string = `${searchURL}/streaming/search/multi/${query}`;
       getStreamings(searchWithQueryUrl);
     }
   }, [query]);
