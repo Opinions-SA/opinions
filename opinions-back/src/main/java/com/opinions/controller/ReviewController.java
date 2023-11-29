@@ -42,8 +42,8 @@ public class ReviewController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/user")
-    public List<ReviewStreamingResponseDto> getByUser(HttpServletRequest request) {
-        return service.getByUser(request);
+    public List<ReviewStreamingResponseDto> getByUser(HttpServletRequest request, @RequestParam("streamingId") Optional<Long> streamingId, @RequestParam("streamingType") Optional<String> streamingType) {
+        return service.getByUser(request, streamingId, streamingType);
     }
 
 
