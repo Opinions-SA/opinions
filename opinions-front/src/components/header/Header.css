@@ -2,10 +2,10 @@
   display: flex;
   width: 100%;
   height: auto;
+  margin-bottom: 10px;
 }
 
 .stream-container {
   width: 100%;
-  margin-bottom: 20px;
-  z-index: 2;
+  height: 100%;
 }

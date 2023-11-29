@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import 'swiper/css/parallax';
 
 import "./Header.css";
 import BackCard from "../backDropCard/BackCard";
@@ -23,11 +24,14 @@ const Header = ({ streaming }: HeaderProps) => {
   return (
     <div className="header-content">
       <Swiper className="stream-container"
+      autoplay={{ delay: 7000, disableOnInteraction: false }}
       slidesPerView={SlidePerView}
       navigation
+      pagination={{clickable: true}}
       > 
           {streaming.map((film, index) => (
-            <SwiperSlide key={film.id.toString() + index} className="carousel-card">
+            <SwiperSlide 
+            key={film.id.toString() + index}>
               <BackCard streaming={film} showLink={true} />
             </SwiperSlide>
           ))}   

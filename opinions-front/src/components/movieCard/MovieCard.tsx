@@ -13,23 +13,22 @@ interface MovieCardProps {
 
 const MovieCard = ({ streaming, showLink }: MovieCardProps) => {
   return (
-    <div className="movie-card">
-      <div className="film-grid">
+      <div className="film-grid-container">
         <div className="grid-inner">
-          <div className={`film-item`}>
+          <div className={`grid-film-item`}>
             {showLink ? (
               <Link to={streaming ? `/${streaming.media_type}/${streaming.id}` : "#"}>
                 {streaming.poster_path && (
-                  <img src={imageUrl + streaming.poster_path} alt={streaming.title} />
+                  <img className="film-grid-image" src={imageUrl + streaming.poster_path} alt={streaming.title} />
                 )}
               </Link>
             ) : (
               streaming.poster_path && (
-                <img src={imageUrl + streaming.poster_path} alt={streaming.title} />
+                <img className="film-grid-image" src={imageUrl + streaming.poster_path} alt={streaming.title} />
               )
             )}
           </div>
-          <div className="card-title">
+          <div className="card-grid-title">
             <h2>{streaming.title}</h2>
             <p>
               <FaStar /> {streaming.vote_average.toFixed(1)}
@@ -37,7 +36,6 @@ const MovieCard = ({ streaming, showLink }: MovieCardProps) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
