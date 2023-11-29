@@ -1,3 +1,5 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import { register } from "swiper/element/bundle";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -7,16 +9,26 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
+register();
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
+
 import "../styles/Movies.css";
 import UserReview from "../components/userReview/UserReview";
 import { Movie } from "../interface/Movie";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import { Review } from "../interface/Review";
+import ListReview from "../components/userReview/ListReview";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;
 
 const MoviePage = () => {
+  const [SlidePerView, setSlidePerView] = useState(1)
+
   const auth = useContext(AuthContext);
   
   const { id } = useParams();
@@ -177,6 +189,13 @@ const MoviePage = () => {
               </div>
             </div>
           </div>
+          {/* List of movies reviews */}
+          <h1 className="list-movies-review">Recent Reviews</h1>
+          <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
+            <SwiperSlide className="carousel-review-list">
+              <ListReview/>
+            </SwiperSlide>
+          </Swiper>
         </>
       )}
     </div>

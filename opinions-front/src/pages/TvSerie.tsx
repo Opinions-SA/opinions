@@ -1,3 +1,5 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import { register } from "swiper/element/bundle";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -6,9 +8,16 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
+register();
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 import { TvSerie } from "../interface/TvSerie";
 
 import UserReview from "../components/userReview/UserReview";
+import ListReview from "../components/userReview/ListReview";
 
 import "../styles/TvSerie.css";
 
@@ -16,6 +25,7 @@ const seriesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;
 
 const TvSeriePage = () => {
+  const [SlidePerView, setSlidePerView] = useState(1)
   const { id } = useParams();
   const [tvSerie, setTvSerie] = useState<TvSerie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
@@ -141,6 +151,13 @@ const TvSeriePage = () => {
               </div>
             </div>
           </div>
+          {/* List of movies reviews */}
+          <h1 className="list-movies-review">Recent Reviews</h1>
+          <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
+            <SwiperSlide className="carousel-review-list">
+              <ListReview/>
+            </SwiperSlide>
+          </Swiper>
         </>
       )}
     </div>

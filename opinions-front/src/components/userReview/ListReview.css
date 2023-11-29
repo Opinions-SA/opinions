@@ -1,0 +1,23 @@
+.review-list-container {
+    width: 500px; 
+    height: 400px;
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.review-list-content {
+    display: flex;
+    flex-direction: column;
+}
+  
+.title-list-review h1 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+  
+.description-list-review p {
+    margin-bottom: 5px;
+}

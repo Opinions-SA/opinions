@@ -140,3 +140,7 @@
 .review-overlay.blur-background {
   filter: blur(20px);
 }
+
+.list-movies-review {
+  padding: 20px;
+}
