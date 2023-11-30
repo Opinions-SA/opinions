@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Carousel from "../components/carousel/Carousel";
+import MoviesCarousel from "../components/moviesCarousel/MoviesCarousel";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 
@@ -45,7 +45,7 @@ const Home = () => {
         {trendingStreaming.length === 0 ? (
           <p>Loading...</p>
         ) : (
-          <Carousel
+          <MoviesCarousel
             itemsData={trendingStreaming}
             renderCard={(item, index) => (
               <MovieCard key={index} streaming={item} showLink={true} />
@@ -57,7 +57,7 @@ const Home = () => {
         {moviesData.length === 0 ? (
           <p> </p>
         ) : (
-          <Carousel
+          <MoviesCarousel
             itemsData={moviesData}
             renderCard={(item, index) => (
               <MovieCard key={index} streaming={item} showLink={true} />
@@ -69,7 +69,7 @@ const Home = () => {
         {seriesData.length === 0 ? (
           <p> </p>
         ) : (
-          <Carousel
+          <MoviesCarousel
             itemsData={seriesData}
             renderCard={(item, index) => (
               <MovieCard key={index} streaming={item} showLink={true} />

@@ -7,10 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { register } from "swiper/element/bundle";
 
 register();
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 import "../styles/Profile.css";
 import ListReview from "../components/userReview/ListReview";
@@ -18,7 +14,7 @@ import ListReview from "../components/userReview/ListReview";
 const apiURL: string = import.meta.env.VITE_API;
 
 const Profile = () => {
-  const [SlidePerView, setSlidePerView] = useState(1)
+  const [SlidePerView, setSlidePerView] = useState(1);
 
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -38,12 +34,12 @@ const Profile = () => {
       setEmail(user.email || "");
     }
   }, [user]);
-  
+
   const handleEdit = async () => {
     if (username && email && phone) {
-      if(username != user?.username) await validateField("username", username);
-      if(email != user?.email) await validateField("email", email);
-      if(phone != user?.phone) await validateField("phone", phone);
+      if (username != user?.username) await validateField("username", username);
+      if (email != user?.email) await validateField("email", email);
+      if (phone != user?.phone) await validateField("phone", phone);
     }
   };
 
@@ -51,7 +47,7 @@ const Profile = () => {
     if (value) {
       const isValidField = await auth.validateField(field, value);
       const inputElement = document.querySelector(`input[name="${field}"]`);
-      if(!inputElement) return;
+      if (!inputElement) return;
       if (!isValidField) {
         inputElement.classList.add("input-error");
         inputElement.classList.remove("input-valid");
@@ -60,43 +56,52 @@ const Profile = () => {
         inputElement.classList.add("input-valid");
       }
     }
-  }
+  };
 
   return (
     <div className="profile-container">
       <div className="profile-inputs">
-        <BiSolidUserCircle className="user-icon"/>
+        <BiSolidUserCircle className="user-icon" />
         <input
-            name="username"
-            type="text"
-            value={username}
-            placeholder="Write your username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            name="email"
-            type="text"
-            value={email}
-            placeholder="Write your email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            name="phone"
-            type="text"
-            value={phone}
-            placeholder="Write your phone"
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <button className="profile-button" onClick={handleEdit}>Confirm</button>
-          <h1 className="list-movies-review">Recent Reviews</h1>
-          <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
-            {user && (
-              <SwiperSlide className="carousel-review-list">
-                <ListReview url={reviewUrl} />
-              </SwiperSlide>
-            )}
-          </Swiper>
+          name="username"
+          type="text"
+          value={username}
+          placeholder="Write your username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          name="email"
+          type="text"
+          value={email}
+          placeholder="Write your email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          name="phone"
+          type="text"
+          value={phone}
+          placeholder="Write your phone"
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        <button className="profile-button" onClick={handleEdit}>
+          Confirm
+        </button>
       </div>
+      {/* List of reviews */}
+      <div className="list-profile-container">
+      <h1 className="list-reviews-title">Your Reviews</h1>
+          <div className="review-profile-content">
+            <Swiper
+              className="profile-cards"
+              slidesPerView={SlidePerView}
+              navigation
+            >
+                <SwiperSlide className="profile-card">
+                  {user && <ListReview url={reviewUrl} />}
+                </SwiperSlide>
+            </Swiper>
+          </div>
+        </div>
     </div>
   );
 };

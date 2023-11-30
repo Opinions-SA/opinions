@@ -1,18 +1,10 @@
-.profile-inputs input.input-error {
-  border: 1px solid red !important;
-}
-
-.profile-inputs input.input-valid {
-  border: 1px solid green !important;
-}
-
 .profile-container {
   color: var(--color-black);
   background-color: var(--color-white);
   padding: 20px 20px 50px 20px;
   border-radius: 6px;
   display: flex;
-  height: 80vh;
+  height: 80%;
   max-width: 60%;
   margin: 1rem auto;
   box-shadow: 0 0 12px var(--color-grey-shadow);
@@ -23,13 +15,14 @@
 
 .user-icon {
   font-size: 50px;
-  margin: 20px;
+  margin: 10px;
 }
 
 .profile-inputs {
   width: 80%;
-  height: 95%;
+  height: 100%;
   font-size: 14px;
+  margin-bottom: 10px;
   color: #000;
   background-color: #ffffff;
 }
@@ -42,6 +35,14 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s; 
+}
+
+.profile-inputs input.input-error {
+  border: 1px solid red !important;
+}
+
+.profile-inputs input.input-valid {
+  border: 1px solid green !important;
 }
 
 .profile-inputs input {
@@ -76,7 +77,7 @@
   transform: scale(1.02); 
 }
 
-.signup-content {
+/* .signup-content {
   margin: 15px 0;
 }
 
@@ -108,4 +109,38 @@
   position: absolute;
   bottom: -1px;
   left: 0;
+} */
+
+/* Review */
+
+.list-profile-container{
+  width: 80%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-profile-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  background-color: #cf1919; 
+  border-radius: 8px; 
+  padding: 15px; 
+}
+
+.list-reviews-title {
+  width: 100%;
+  text-align: center;
+  font-size: 36px;
+}
+
+.profile-cards {
+  display: flex;
+  width: 100%;
+  background-color: #8C52FF;
+}
+
+.profile-card {
+  height: 300px; 
+  width: 300px;
 }

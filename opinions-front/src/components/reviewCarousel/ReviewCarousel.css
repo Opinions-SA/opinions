@@ -1,0 +1,54 @@
+.review-carousel-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.review-carousel-content {
+  width: 70%;
+  background-color: var(--color-white);
+  border-radius: 7px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 0 10px 0;
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.356); 
+}
+
+.carousel-card-item {
+  height: 300px;
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.carousel-card-item:hover {
+  transform: scale(1.05);
+}
+
+.swiper-wrapper {
+  width: fit-content;
+  display: flex;
+}
+
+.carousel-cards {
+  padding: 40px;
+  display: flex;
+  overflow: hidden; 
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-card {
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-card img {
+  width: auto;
+  transition: transform 0.3s;
+}
+
+.carousel-card.active img {
+  transform: scale(1.06);
+}

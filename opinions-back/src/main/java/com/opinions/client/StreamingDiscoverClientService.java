@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(value = "tmdb-discover-api", url = "${tmdb.url.discover}")
+@FeignClient(name = "tmdb-discover-api", url = "${tmdb.url.discover}")
 public interface StreamingDiscoverClientService {
 
     @RequestMapping(value = "/movie",

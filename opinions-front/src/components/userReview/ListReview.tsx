@@ -1,7 +1,9 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import Rating from '@mui/material/Rating';
 
 import { Review } from "../../interface/Review";
-import Carousel from '../carousel/Carousel';
+import ReviewCarousel from "../reviewCarousel/ReviewCarousel";
 
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 
@@ -24,7 +26,7 @@ const ListReview = ({ url }: ListReviewProps) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const createStreamingLink: any = (review: Review) => {
-    return (url = `${apiURL}/streaming/${review.streaming.media_type}/${review.streaming.id}`);
+    return (url = `http://localhost:5173/${review.streaming.media_type}/${review.streaming.id}`);
   };
 
   useEffect(() => {
@@ -64,19 +66,28 @@ const ListReview = ({ url }: ListReviewProps) => {
   }, [url, userToken]);
 
   const renderReviewCard = ({ review, index }: ReviewCardProps) => (
-    <div className="review-list-content" key={review.id}>
-      <div className="title-list-review">
-        <h1>{review.title}</h1>
-      </div>
+    <div className="review-list-container">
+
+      <div className="review-list-content" key={review.id}>
+        <div className="title-list-review">
+          <Link to={createStreamingLink(review)}>
+            <h1>{review.title}</h1> 
+          </Link>
+        </div>  
+        <p>
+        <Rating name={`rating-${review.id}`} value={review.rate} precision={1} readOnly max={10}/>
+      </p>
       <div className="description-list-review">
-        <p>Rating: {review.rate}</p>
         <p>{review.description}</p>
       </div>
     </div>
+    
+    </div>
+    
   );
 
   return (
-    <Carousel
+    <ReviewCarousel
       itemsData={reviews}
       renderCard={(review, index) => renderReviewCard({ review, index })}
     />
