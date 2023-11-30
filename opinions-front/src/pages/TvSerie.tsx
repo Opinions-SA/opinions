@@ -167,23 +167,6 @@ const TvSeriePage = () => {
                   </h3>
                   <p>{tvSerie.overview}</p>
                 </div>
-                {id && view && (
-                  <>
-                    <div className="review-button-container">
-                      <button
-                        className="open-review-button"
-                        onClick={toggleUserReview}
-                      >
-                        New Review
-                      </button>
-                    </div>
-                    {showUserReview && (
-                      <div className="review-overlay">
-                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "tv" }}/>
-                      </div>
-                    )}
-                  </>
-                )}
               </div>
             </div>
           </div>
@@ -200,6 +183,23 @@ const TvSeriePage = () => {
           </div> 
           </Swiper>
           </div>
+          {id && view && (
+                  <>
+                    <div className="review-button-container">
+                      <button
+                        className="open-review-button"
+                        onClick={toggleUserReview}
+                      >
+                        New Review
+                      </button>
+                    </div>
+                    {showUserReview && (
+                      <div className="review-overlay">
+                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "tv" }}/>
+                      </div>
+                    )}
+                  </>
+                )}
         </>
       )}
     </div>

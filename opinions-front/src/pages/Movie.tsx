@@ -172,24 +172,6 @@ const MoviePage = () => {
                   </h2>
                   <p>{movie.overview}</p>
                 </div>
-                {/* Review Card */}
-                {id && view && (
-                  <>
-                    <div className="review-button-container">
-                      <button
-                        className="open-review-button"
-                        onClick={toggleUserReview}
-                      >
-                        New Review
-                      </button>
-                    </div>
-                    {showUserReview && (
-                      <div className="review-overlay">
-                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "movie" }}/>
-                      </div>
-                    )}
-                  </>
-                )}
               </div>
             </div>
           </div>
@@ -206,6 +188,24 @@ const MoviePage = () => {
           </div> 
           </Swiper>
           </div>
+          {/* Review Card */}
+          {id && view && (
+                  <>
+                    <div className="review-button-container">
+                      <button
+                        className="open-review-button"
+                        onClick={toggleUserReview}
+                      >
+                        Create a New Review
+                      </button>
+                    </div>
+                    {showUserReview && (
+                      <div className="review-overlay">
+                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "movie" }}/>
+                      </div>
+                    )}
+                  </>
+                )}
         </>
       )}
     </div>
