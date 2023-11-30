@@ -73,16 +73,20 @@ const Navbar = () => {
             <ListItem button onClick={() => navigate("/")}>
               <ListItemText primary="Home" />
             </ListItem>
-            <ListItem
+            {auth.user ? (
+              <div>
+                <ListItem
               button
-              onClick={() => navigate("http://localhost:5173/profile")}
+              onClick={() => navigate("/profile")}
             >
               <ListItemText primary="Profile" />
             </ListItem>
-            {auth.user ? (
+            
               <ListItem button onClick={handleLogout}>
                 <ListItemText primary="Logout" />
               </ListItem>
+              </div>
+            
             ) : (
               <ListItem button onClick={handleLogin}>
                 <ListItemText primary="Login" />
