@@ -23,8 +23,14 @@ const UserReview = ({ onClose, data }: UserReviewProps) => {
   const [description, setDescription] = useState("");
   const [rate, setRate] = useState<number | null>(null);
 
+  const maxTitleLength = 20;
+
   const handleSubmit = async () => {
     if (token && data.id && data.type && user && title && description && rate) {
+      if (title.length > maxTitleLength) {
+        alert(`Title must be at most ${maxTitleLength} characters long.`);
+        return;
+      }
       const review = await auth.reviewCreate(
         token,
         parseInt(data.id, 10),
@@ -71,7 +77,14 @@ const UserReview = ({ onClose, data }: UserReviewProps) => {
           type="text"
           placeholder="Give your review a name"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            const inputTitle = e.target.value;
+            if (inputTitle.length <= maxTitleLength) {
+              setTitle(inputTitle);
+            } else {
+              alert(`Title must be at most ${maxTitleLength} characters long.`);
+            }
+          }}
         />
         <textarea
           className="review-textarea"
