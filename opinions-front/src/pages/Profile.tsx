@@ -3,13 +3,29 @@ import { AuthContext, AuthContextProps } from "../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { BiSolidUserCircle } from "react-icons/bi";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { register } from "swiper/element/bundle";
+
+register();
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 import "../styles/Profile.css";
+import ListReview from "../components/userReview/ListReview";
+
+const apiURL: string = import.meta.env.VITE_API;
 
 const Profile = () => {
+  const [SlidePerView, setSlidePerView] = useState(1)
+
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   const { user }: AuthContextProps = useContext(AuthContext);
+
+  const reviewUrl: string = `${apiURL}/review/user`;
 
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
@@ -72,6 +88,14 @@ const Profile = () => {
             onChange={(e) => setPhone(e.target.value)}
           />
           <button className="profile-button" onClick={handleEdit}>Confirm</button>
+          <h1 className="list-movies-review">Recent Reviews</h1>
+          <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
+            {user && (
+              <SwiperSlide className="carousel-review-list">
+                <ListReview url={reviewUrl} />
+              </SwiperSlide>
+            )}
+          </Swiper>
       </div>
     </div>
   );

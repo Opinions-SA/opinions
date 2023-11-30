@@ -37,7 +37,9 @@ const MoviePage = () => {
   const [review, setReview] = useState<Review | null>(null);
   const [view, setView] = useState(false);
 
-  const [userToken, setUserToken] = useState<string>(""); 
+  const [userToken, setUserToken] = useState<string>("");
+
+  const reviewUrl: string = `${moviesApiURL}/review/streaming?streamingId=${id}&streamingType=${"movie"}`;
 
   const getMovie = async (url: RequestInfo | URL) => {
     const options: RequestInit = {
@@ -200,7 +202,7 @@ const MoviePage = () => {
           <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
             {id && (
               <SwiperSlide className="carousel-review-list">
-                <ListReview data={{ id: id, type: "movie" }} />
+                <ListReview url={reviewUrl} />
               </SwiperSlide>
             )}
           </Swiper>

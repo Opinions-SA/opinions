@@ -38,6 +38,8 @@ const TvSeriePage = () => {
 
   const [userToken, setUserToken] = useState<string>(""); 
 
+  const reviewUrl: string = `${seriesApiURL}/review/streaming?streamingId=${id}&streamingType=${"tv"}`;
+
   const getTvSerie = async (url: RequestInfo | URL) => {
     const options: RequestInit = {
       method: "GET",
@@ -194,7 +196,7 @@ const TvSeriePage = () => {
           <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
             {id && (
               <SwiperSlide className="carousel-review-list">
-                <ListReview data={{ id: id, type: "tv" }} />
+                <ListReview url={reviewUrl} />
               </SwiperSlide>
             )}
           </Swiper>
