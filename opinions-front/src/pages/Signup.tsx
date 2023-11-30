@@ -18,12 +18,61 @@ const Register = () => {
   const [isEmailValid, setIsEmailValid] = useState<Boolean | null>(null);
   const [isPasswordMatch, setIsPasswordMatch] = useState<Boolean | null>(null);
 
+  const isPasswordValid = (value: string): boolean => {
+    if (value.length < 8) {
+      return false;
+    }
+    if (!/[A-Z]/.test(value)) {
+      return false;
+    }
+    if (!/[\W_]/.test(value)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    if (passwordConfirm) {
+      setIsPasswordMatch(value === passwordConfirm);
+    }
+  };
+
+  const handlePasswordConfirmChange = (value: string) => {
+    setPasswordConfirm(value);
+    if (password) {
+      setIsPasswordMatch(value === password);
+    }
+  };
+
+  const isEmailValidFormat = (value: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(value);
+  };
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    setIsEmailValid(isEmailValidFormat(value));
+  };
+
   const handleRegister = async () => {
     if (username && email && password && passwordConfirm) {
+      if (!isEmailValidFormat(email)) {
+        return alert("Invalid email format!");
+      }
+      
+      if (!isPasswordValid(password)) {
+        return alert(
+          "The password must contain at least 8 characters, have 1 capital letter and 1 symbol!"
+        );
+      }
+
       if (password !== passwordConfirm) {
         setIsPasswordMatch(false);
         return alert("Passwords do not match!");
       }
+
       const isRegister = await auth.signup(username, email, password);
       if (isRegister) {
         navigate("/login");
@@ -78,9 +127,24 @@ const Register = () => {
               ? "input-valid"
               : "input-error"
           }
+          onBlur={() => setIsEmailValid(isEmailValidFormat(email))}
+          onChange={(e) => handleEmailChange(e.target.value)}
+        />
+        {/* <input
+          name="email"
+          type="text"
+          value={email}
+          placeholder="Write your email"
+          className={
+            isEmailValid === null
+              ? ""
+              : isEmailValid
+              ? "input-valid"
+              : "input-error"
+          }
           onBlur={(e) => validateField("email", e.target.value)}
           onChange={(e) => setEmail(e.target.value)}
-        />
+        /> */}
         <input
           name="password"
           type="password"
@@ -93,7 +157,7 @@ const Register = () => {
               ? "input-valid"
               : "input-error"
           }
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => handlePasswordChange(e.target.value)}
         />
         <input
           name="confirmPassword"
@@ -107,10 +171,8 @@ const Register = () => {
               ? "input-valid"
               : "input-error"
           }
-          onBlur={() => {
-            if (password && passwordConfirm) setIsPasswordMatch(password === passwordConfirm)
-          }}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
+          onBlur={() => setIsPasswordMatch(password === passwordConfirm)}
+          onChange={(e) => handlePasswordConfirmChange(e.target.value)}
         />
         <button className="login-button" onClick={handleRegister}>
           Sign up
