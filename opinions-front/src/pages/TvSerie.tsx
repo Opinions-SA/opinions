@@ -9,10 +9,6 @@ import {
 } from "react-icons/bs";
 
 register();
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 import { TvSerie } from "../interface/TvSerie";
 
@@ -157,7 +153,7 @@ const TvSeriePage = () => {
                       <BsWallet2 /> Networks
                     </h3>
                     <div className="network-serie-container">
-                      {tvSerie.networks.map((network) => (
+                      {tvSerie.networks.slice(0, 3).map((network) => (
                           <img
                             className="network-image"
                             src={imageUrl + network.logo_path}
@@ -191,15 +187,19 @@ const TvSeriePage = () => {
               </div>
             </div>
           </div>
-          {/* List of movies reviews */}
-          <h1 className="list-movies-review">Recent Reviews</h1>
-          <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
+          {/* List of series reviews */}
+          <div className="list-movies-container">
+          <h1 className="list-movies-title">Recent Reviews</h1>
+          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
+          <div className="list-review-item"> 
+            <SwiperSlide className="carousel-review-list">
             {id && (
-              <SwiperSlide className="carousel-review-list">
-                <ListReview url={reviewUrl} />
-              </SwiperSlide>
+              <ListReview url={reviewUrl} />
             )}
+            </SwiperSlide>
+          </div> 
           </Swiper>
+          </div>
         </>
       )}
     </div>

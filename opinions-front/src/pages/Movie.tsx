@@ -10,11 +10,6 @@ import {
 } from "react-icons/bs";
 
 register();
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-
 
 import "../styles/Movies.css";
 import UserReview from "../components/userReview/UserReview";
@@ -160,7 +155,7 @@ const MoviePage = () => {
                       <BsWallet2 /> Production Companies
                     </h2>
                     <div className="companie-movie-container">
-                      {movie.production_companies.map((companie) => (
+                      {movie.production_companies.slice(0, 2).map((companie) => (
                         <div className="companie-movie">
                           <img
                             className="companie-image"
@@ -202,7 +197,7 @@ const MoviePage = () => {
           <div className="list-movies-container">
           <h1 className="list-movies-title">Recent Reviews</h1>
           <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
-          <div className="swiper-wrapper"> 
+          <div className="list-review-item"> 
             <SwiperSlide className="carousel-review-list">
             {id && (
               <ListReview url={reviewUrl} />

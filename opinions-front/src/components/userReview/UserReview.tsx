@@ -27,6 +27,7 @@ const UserReview = ({ onClose, data }: UserReviewProps) => {
       const review = await auth.reviewCreate(token, parseInt(data.id, 10), data.type, user, title, description, rate);
       if (review) {
         onClose();
+        window.location.reload();
       }
     }
   };

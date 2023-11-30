@@ -69,8 +69,8 @@ const ListReview = ({ url }: ListReviewProps) => {
         <h1>{review.title}</h1>
       </div>
       <div className="description-list-review">
-        <p>{review.description}</p>
         <p>Rating: {review.rate}</p>
+        <p>{review.description}</p>
       </div>
     </div>
   );
