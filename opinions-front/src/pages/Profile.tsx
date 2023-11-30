@@ -42,6 +42,10 @@ const Profile = () => {
       if (email != user?.email) await validateField("email", email);
       if (phone != user?.phone) await validateField("phone", phone);
     }
+    const isEdited = await auth.edit(username, email, phone);
+      if (isEdited) {
+        window.location.reload();
+      }
   };
 
   const validateField = async (field: string, value: string) => {
