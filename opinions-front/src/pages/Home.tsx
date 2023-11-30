@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Carousel from "../components/carousel/Carousel";
 import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 import { Streaming } from "../interface/Streaming";
+import MovieCard from "../components/movieCard/MovieCard";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 
@@ -11,10 +13,10 @@ const Home = () => {
 
   const getTrendingStreaming = async (url: RequestInfo) => {
     const options: RequestInit = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        accept: 'application/json',
-      }
+        accept: "application/json",
+      },
     };
     const res = await fetch(url, options);
     const data: Streaming[] = await res.json();
@@ -26,16 +28,61 @@ const Home = () => {
     getTrendingStreaming(topRatedUrl);
   }, []);
 
+  const moviesData = trendingStreaming.filter(
+    (item) => item.media_type === "movie"
+  );
+
+  const seriesData = trendingStreaming.filter(
+    (item) => item.media_type === "tv"
+  );
+
   return (
     <div className="home-container">
-        <div className="header-container">
-          <Header streaming={trendingStreaming}/>
-        </div>
-        <div className="movies-container">
-            {trendingStreaming.length === 0 ? <p>Carregando...</p> : (
-              <Carousel gridData={trendingStreaming} />
+      <div className="header-container">
+        <Header streaming={trendingStreaming} />
+      </div>
+      <div className="movies-container">
+        {trendingStreaming.length === 0 ? (
+          <p>Loading...</p>
+        ) : (
+          <Carousel
+            itemsData={trendingStreaming}
+            renderCard={(item, index) => (
+              <MovieCard key={index} streaming={item} showLink={true} />
             )}
-        </div>
+            title="Top Releases"
+          />
+        )}
+
+        {moviesData.length === 0 ? (
+          <p> </p>
+        ) : (
+          <Carousel
+            itemsData={moviesData}
+            renderCard={(item, index) => (
+              <MovieCard key={index} streaming={item} showLink={true} />
+            )}
+            title="Top Movies Releases"
+          />
+        )}
+
+        {seriesData.length === 0 ? (
+          <p> </p>
+        ) : (
+          <Carousel
+            itemsData={seriesData}
+            renderCard={(item, index) => (
+              <MovieCard key={index} streaming={item} showLink={true} />
+            )}
+            title="Top Tv Series Releases"
+          />
+        )}
+      </div>
+      {trendingStreaming.length === 0 ? (
+          <p> </p>
+        ) : (
+      <Footer />
+      )}
     </div>
   );
 };

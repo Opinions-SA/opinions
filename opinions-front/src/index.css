@@ -11,6 +11,13 @@
   --color-white: #f2f2f2;
 }
 
+.swiper-button-next, .swiper-button-prev {
+  color: #8c00ff; 
+}
+
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
+  color: #999999;
+}
 
 * {
   font-family: Helvetica;

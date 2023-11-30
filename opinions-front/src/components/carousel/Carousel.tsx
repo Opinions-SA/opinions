@@ -1,25 +1,19 @@
-import { Streaming } from "../../interface/Streaming";
-
 import { useState, useEffect } from "react";
-import { register } from "swiper/element/bundle";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-register();
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-
-import MovieCard from "../movieCard/MovieCard";
-
 import "./Carousel.css";
+import { register } from "swiper/element/bundle";
 
-interface CarouselProps {
-  gridData: Streaming[];
+register()
+
+interface CarouselProps<T> {
+  itemsData: T[];
+  renderCard: (item: T, index: number) => React.ReactNode;
+  title?: string;
 }
 
-const Carousel = ({ gridData }: CarouselProps) => {
-  const [SlidePerView, setSlidePerView] = useState(2)
+const Carousel = <T,>({ itemsData, renderCard, title }: CarouselProps<T>) => {
+  const [SlidePerView, setSlidePerView] = useState(2);
 
   useEffect(() => {
     function handleResize(){
@@ -48,14 +42,11 @@ const Carousel = ({ gridData }: CarouselProps) => {
   return (
     <div className="carousel-grid-container">
       <div className="carousel-container">
-        <h1>Top Releases</h1>
-        <Swiper className="carousel-cards"
-        slidesPerView={SlidePerView}
-        navigation
-        >
-          {gridData.map((film, index) => (
-            <SwiperSlide key={film.id.toString() + index} className="carousel-card">
-              <MovieCard streaming={film} showLink={true} />
+        {title && <h1>{title}</h1>}
+        <Swiper className="carousel-cards" slidesPerView={SlidePerView} navigation>
+          {itemsData.map((item, index) => (
+            <SwiperSlide key={index} className="carousel-card">
+              {renderCard(item, index)}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -65,3 +56,24 @@ const Carousel = ({ gridData }: CarouselProps) => {
 };
 
 export default Carousel;
+
+//   return (
+//     <div className="carousel-grid-container">
+//       <div className="carousel-container">
+//         <h1>Top Releases</h1>
+//         <Swiper className="carousel-cards"
+//         slidesPerView={SlidePerView}
+//         navigation
+//         >
+//           {gridData.map((film, index) => (
+//             <SwiperSlide key={film.id.toString() + index} className="carousel-card">
+//               <MovieCard streaming={film} showLink={true} />
+//             </SwiperSlide>
+//           ))}
+//         </Swiper>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Carousel;
