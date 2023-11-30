@@ -1,12 +1,13 @@
 .carousel-grid-container {
-  width: 70%;
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .carousel-container {
-  position: relative;
-  width: 100%;
+  width: 70%;
   margin-bottom: 40px;
 }
 
@@ -14,43 +15,27 @@
   margin: 10px 0 0px 0;
 }
 
+.swiper-wrapper {
+  width: fit-content;
+  display: flex;
+}
+
 .carousel-cards {
   padding: 40px;
   display: flex;
+  overflow: hidden; 
   transition: transform 0.5s ease-in-out;
 }
 
 .carousel-card {
-  width: 200px;
   margin-right: 20px;
 }
 
 .carousel-card img {
-  width: 100%;
+  width: auto;
   transition: transform 0.3s;
 }
 
 .carousel-card.active img {
   transform: scale(1.06);
-}
-
-.prev-button,
-.next-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 28px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  outline: none;
-  color: rgb(0, 0, 0);
-}
-
-.prev-button {
-  left: 10px;
-}
-
-.next-button {
-  right: 10px;
 }

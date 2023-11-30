@@ -177,6 +177,7 @@ const MoviePage = () => {
                   </h2>
                   <p>{movie.overview}</p>
                 </div>
+                {/* Review Card */}
                 {id && view && (
                   <>
                     <div className="review-button-container">
@@ -199,13 +200,15 @@ const MoviePage = () => {
           </div>
           {/* List of movies reviews */}
           <div className="list-movies-container">
-          <h1 className="list-movies-content">Recent Reviews</h1>
-          <Swiper className='list-review-cards'slidesPerView={SlidePerView}navigation>
+          <h1 className="list-movies-title">Recent Reviews</h1>
+          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
+          <div className="swiper-wrapper"> 
+            <SwiperSlide className="carousel-review-list">
             {id && (
-              <SwiperSlide className="carousel-review-list">
-                <ListReview url={reviewUrl} />
-              </SwiperSlide>
+              <ListReview url={reviewUrl} />
             )}
+            </SwiperSlide>
+          </div> 
           </Swiper>
           </div>
         </>
