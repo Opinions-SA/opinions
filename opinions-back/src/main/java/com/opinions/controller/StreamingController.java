@@ -20,7 +20,19 @@ public class StreamingController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/trending/all")
     public List<StreamingDto> getTrendingAll() {
-        return service.getTrendingAll();
+        return service.getTrendingAll("");
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/trending/tv")
+    public List<StreamingDto> getTrendingMovies() {
+        return service.getTrendingAll("tv");
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/trending/movie")
+    public List<StreamingDto> getTrendingTvSeries() {
+        return service.getTrendingAll("movie");
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

@@ -18,8 +18,14 @@ public class StreamingService {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public List<StreamingDto> getTrendingAll() {
-        return streamingListFormat(repository.getTrendingAll());
+    public List<StreamingDto> getTrendingAll(String type) {
+        if (type.equals("movie")) {
+            return streamingListFormat(repository.getTrendingMovies());
+        } else if (type.equals("tv")) {
+            return streamingListFormat(repository.getTrendingTvSeries());
+        } else {
+            return streamingListFormat(repository.getTrendingAll());
+        }
     }
 
     public MovieDto getMovie(Integer movie) {
