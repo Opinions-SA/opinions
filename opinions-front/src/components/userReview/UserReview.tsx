@@ -15,7 +15,8 @@ interface UserReviewProps {
 const UserReview = ({ onClose, data }: UserReviewProps) => {
   const auth = useContext(AuthContext);
 
-  const { token, user }: AuthContextProps = useContext(AuthContext);
+  const { user }: AuthContextProps = useContext(AuthContext);
+  const token = auth.tokenGetter();
   
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

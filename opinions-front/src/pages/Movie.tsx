@@ -35,7 +35,8 @@ const MoviePage = () => {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
   const [review, setReview] = useState<Review | null>(null);
-  
+  const [view, setView] = useState(false);
+
   const [userToken, setUserToken] = useState<string>(""); 
 
   const getMovie = async (url: RequestInfo | URL) => {
@@ -61,7 +62,7 @@ const MoviePage = () => {
     const fetchToken = async () => {
       try {
         const response = await auth.tokenGetter();
-        setUserToken(response ? response.toString : "");
+        setUserToken(response ? response.toString() : "");
       } catch (error) {
         console.error('Error fetching token:', error);
       }
@@ -76,7 +77,8 @@ const MoviePage = () => {
       const getReview = async () => {
         try {
           const reviewResponse = await auth.reviewGet(userToken, parseInt(id, 10), "movie");
-          setReview(reviewResponse);
+          if (reviewResponse) { setReview(reviewResponse); return;}
+          setView(true)
         } catch (error) {
           console.error('Error fetching review:', error);
         }
@@ -173,18 +175,22 @@ const MoviePage = () => {
                   </h2>
                   <p>{movie.overview}</p>
                 </div>
-                <div className="review-button-container">
-                <button
-                  className="open-review-button"
-                  onClick={toggleUserReview}
-                >
-                  New Review
-                </button>
-                </div>
-                {showUserReview && id && (
-                  <div className="review-overlay">
-                    <UserReview onClose={toggleUserReview} data={{id: id, type: "movie" }}/>
-                  </div>
+                {id && view && (
+                  <>
+                    <div className="review-button-container">
+                      <button
+                        className="open-review-button"
+                        onClick={toggleUserReview}
+                      >
+                        New Review
+                      </button>
+                    </div>
+                    {showUserReview && (
+                      <div className="review-overlay">
+                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "movie" }}/>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -192,9 +198,11 @@ const MoviePage = () => {
           {/* List of movies reviews */}
           <h1 className="list-movies-review">Recent Reviews</h1>
           <Swiper className='list-review'slidesPerView={SlidePerView}navigation>
-            <SwiperSlide className="carousel-review-list">
-              <ListReview/>
-            </SwiperSlide>
+            {id && (
+              <SwiperSlide className="carousel-review-list">
+                <ListReview data={{ id: id, type: "movie" }} />
+              </SwiperSlide>
+            )}
           </Swiper>
         </>
       )}

@@ -5,7 +5,7 @@ import { Review } from "../../interface/Review";
 export interface AuthContextProps {
     user: User | null;
     token: string | null;
-    tokenGetter: () => String | null;
+    tokenGetter: () => string | null;
     signin: (username: string, password: string) => Promise<boolean>;
     signup: (username: string, email: string, password: string) => Promise<boolean>;
     signout: () => void;
