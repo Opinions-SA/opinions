@@ -189,7 +189,7 @@ const TvSeriePage = () => {
           </div>
           {/* List of series reviews */}
           <div className="list-movies-container">
-          <h1 className="list-movies-title">Recent Reviews</h1>
+          <h1 className="list-movies-title">Recent Communit Reviews</h1>
           <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
           <div className="list-review-item"> 
             <SwiperSlide className="carousel-review-list">

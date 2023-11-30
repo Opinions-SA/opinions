@@ -10,6 +10,7 @@ register();
 
 import "../styles/Profile.css";
 import ListReview from "../components/userReview/ListReview";
+import Footer from "../components/footer/Footer";
 
 const apiURL: string = import.meta.env.VITE_API;
 
@@ -59,50 +60,56 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <div className="profile-inputs">
-        <BiSolidUserCircle className="user-icon" />
-        <input
-          name="username"
-          type="text"
-          value={username}
-          placeholder="Write your username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          name="email"
-          type="text"
-          value={email}
-          placeholder="Write your email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          name="phone"
-          type="text"
-          value={phone}
-          placeholder="Write your phone"
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <button className="profile-button" onClick={handleEdit}>
-          Confirm
-        </button>
-      </div>
-      {/* List of reviews */}
-      <div className="list-profile-container">
-      <h1 className="list-reviews-title">Your Reviews</h1>
-          <div className="review-profile-content">
-            <Swiper
-              className="profile-cards"
-              slidesPerView={SlidePerView}
-              navigation
-            >
-                <SwiperSlide className="profile-card">
-                  {user && <ListReview url={reviewUrl} />}
-                </SwiperSlide>
-            </Swiper>
-          </div>
+    <>
+      <div className="profile-container">
+        <div className="profile-inputs">
+          <BiSolidUserCircle className="user-icon" />
+          <h1
+            style={{margin: 20}}
+          >Edit your informations</h1>
+          <input
+            name="username"
+            type="text"
+            value={username}
+            placeholder="Write your username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            name="email"
+            type="text"
+            value={email}
+            placeholder="Write your email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            name="phone"
+            type="text"
+            value={phone}
+            placeholder="Write your phone"
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <button className="profile-button" onClick={handleEdit}>
+            Confirm
+          </button>
         </div>
-    </div>
+      </div>
+      {/* List of user reviews */}
+      <div className="list-movies-container">
+        <h1 className="list-movies-title">Your Reviews</h1>
+        <Swiper
+          className="list-review-cards"
+          slidesPerView={SlidePerView}
+          navigation
+        >
+          <div className="list-review-item">
+            <SwiperSlide className="carousel-review-list">
+              {user && <ListReview url={reviewUrl} />}
+            </SwiperSlide>
+          </div>
+        </Swiper>
+      </div>
+      <Footer />
+    </>
   );
 };
 

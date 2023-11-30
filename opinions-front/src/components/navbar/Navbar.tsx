@@ -5,11 +5,16 @@ import { AiOutlineUser } from "react-icons/ai";
 
 import "./Navbar.css";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import { IconButton, ListItem, ListItemText } from "@mui/material";
+import { BiMenu } from "react-icons/bi";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);
 
   const [search, setSearch] = useState<string>("");
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -30,6 +35,10 @@ const Navbar = () => {
     setSearch("");
   };
 
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
+
   return (
     <nav id="navbar">
       <h2>
@@ -48,22 +57,39 @@ const Navbar = () => {
         <button type="submit">
           <BiSearchAlt2 />
         </button>
-        <div className="user-submit-content">
-          <AiOutlineUser className="user-submit-icon"/>{" "}
-          {auth.user ? (
-            <h2>
-              <a href="" onClick={handleLogout}>
-                Logout
-              </a>
-            </h2>
-          ) : (
-            <h2>
-              <a href="" onClick={handleLogin}>
-                Login
-              </a>
-            </h2>
-          )}
+        <div className="icon-spacer" >
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleDrawer}
+        >
+        
+          <BiMenu />
+        </IconButton>
         </div>
+        <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
+          <List>
+            <ListItem button onClick={() => navigate("/")}>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => navigate("http://localhost:5173/profile")}
+            >
+              <ListItemText primary="Profile" />
+            </ListItem>
+            {auth.user ? (
+              <ListItem button onClick={handleLogout}>
+                <ListItemText primary="Logout" />
+              </ListItem>
+            ) : (
+              <ListItem button onClick={handleLogin}>
+                <ListItemText primary="Login" />
+              </ListItem>
+            )}
+          </List>
+        </Drawer>
       </form>
     </nav>
   );
