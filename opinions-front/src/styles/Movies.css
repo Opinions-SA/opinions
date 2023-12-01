@@ -76,6 +76,7 @@
 .companie-movie-container {
   display: flex;
   flex-wrap: wrap;
+  padding: 10px;
   gap: 7%;
   margin-left: 20px;
 }
@@ -107,6 +108,7 @@
   margin-bottom: 10px;
   display: flex;
   width: 100%;
+  justify-content: center;
   align-items: center;
 }
 
@@ -120,6 +122,7 @@
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
+  margin-bottom: 30px;
   transition: background-color 0.3s ease;
 }
 
@@ -139,4 +142,20 @@
 
 .review-overlay.blur-background {
   filter: blur(20px);
+}
+
+/* List Reviews */
+
+.list-movies-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding-top: 20px;
+  font-size: 40px;
+}
+
+.list-review-cards {
+  margin-left: 10px;
 }

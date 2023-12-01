@@ -33,6 +33,7 @@ public class  SecurityConfigurations {
                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/streaming/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/discover/**").permitAll()
+                .requestMatchers("/review/streaming").permitAll()
                 .requestMatchers("/review").hasAnyRole("ADMIN", "USER")
                 .requestMatchers("/review/**").hasAnyRole("ADMIN", "USER")
                 .requestMatchers("/user/token").hasAnyRole("ADMIN", "USER")

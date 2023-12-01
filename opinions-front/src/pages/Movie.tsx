@@ -1,3 +1,5 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import { register } from "swiper/element/bundle";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -7,24 +9,32 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
+register();
+
 import "../styles/Movies.css";
 import UserReview from "../components/userReview/UserReview";
 import { Movie } from "../interface/Movie";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import { Review } from "../interface/Review";
+import ListReview from "../components/userReview/ListReview";
 
 const moviesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;
 
 const MoviePage = () => {
+  const [SlidePerView, setSlidePerView] = useState(1)
+
   const auth = useContext(AuthContext);
   
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
   const [review, setReview] = useState<Review | null>(null);
-  
-  const [userToken, setUserToken] = useState<string>(""); 
+  const [view, setView] = useState(false);
+
+  const [userToken, setUserToken] = useState<string>("");
+
+  const reviewUrl: string = `${moviesApiURL}/review/streaming?streamingId=${id}&streamingType=${"movie"}`;
 
   const getMovie = async (url: RequestInfo | URL) => {
     const options: RequestInit = {
@@ -49,7 +59,7 @@ const MoviePage = () => {
     const fetchToken = async () => {
       try {
         const response = await auth.tokenGetter();
-        setUserToken(response ? response.toString : "");
+        setUserToken(response ? response.toString() : "");
       } catch (error) {
         console.error('Error fetching token:', error);
       }
@@ -64,7 +74,8 @@ const MoviePage = () => {
       const getReview = async () => {
         try {
           const reviewResponse = await auth.reviewGet(userToken, parseInt(id, 10), "movie");
-          setReview(reviewResponse);
+          if (reviewResponse) { setReview(reviewResponse); return;}
+          setView(true)
         } catch (error) {
           console.error('Error fetching review:', error);
         }
@@ -144,7 +155,7 @@ const MoviePage = () => {
                       <BsWallet2 /> Production Companies
                     </h2>
                     <div className="companie-movie-container">
-                      {movie.production_companies.map((companie) => (
+                      {movie.production_companies.slice(0, 2).map((companie) => (
                         <div className="companie-movie">
                           <img
                             className="companie-image"
@@ -161,22 +172,40 @@ const MoviePage = () => {
                   </h2>
                   <p>{movie.overview}</p>
                 </div>
-                <div className="review-button-container">
-                <button
-                  className="open-review-button"
-                  onClick={toggleUserReview}
-                >
-                  New Review
-                </button>
-                </div>
-                {showUserReview && id && (
-                  <div className="review-overlay">
-                    <UserReview onClose={toggleUserReview} data={{id: id, type: "movie" }}/>
-                  </div>
-                )}
               </div>
             </div>
           </div>
+          {/* List of movies reviews */}
+          <div className="list-movies-container">
+          <h1 className="list-movies-title">Recent Communit Reviews</h1>
+          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
+          <div className="list-review-item"> 
+            <SwiperSlide className="carousel-review-list">
+            {id && (
+              <ListReview url={reviewUrl} />
+            )}
+            </SwiperSlide>
+          </div> 
+          </Swiper>
+          </div>
+          {/* Review Card */}
+          {id && view && (
+                  <>
+                    <div className="review-button-container">
+                      <button
+                        className="open-review-button"
+                        onClick={toggleUserReview}
+                      >
+                        Create a New Review
+                      </button>
+                    </div>
+                    {showUserReview && (
+                      <div className="review-overlay">
+                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "movie" }}/>
+                      </div>
+                    )}
+                  </>
+                )}
         </>
       )}
     </div>

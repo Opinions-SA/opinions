@@ -35,6 +35,15 @@ public class StreamingRepository {
         return (trendingClientService.getAll(API_TOKEN)).getResults();
     }
 
+    public List<StreamingTempDto> getTrendingMovies() {
+        return (trendingClientService.getMovies(API_TOKEN)).getResults();
+    }
+
+    public List<StreamingTempDto> getTrendingTvSeries() {
+        return (trendingClientService.getTvSeries(API_TOKEN)).getResults();
+    }
+
+
     public MovieDto getMovie(Integer movie) {
         return (movieClientService.getMovie(API_TOKEN, movie));
     }

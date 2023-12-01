@@ -30,8 +30,8 @@ public class ReviewController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public ReviewResponseDto create(@RequestBody ReviewDto data){
-        return service.create(data);
+    public ReviewResponseDto create(HttpServletRequest request, @RequestBody ReviewDto data){
+        return service.create(request, data);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -46,6 +46,11 @@ public class ReviewController {
         return service.getByUser(request, streamingId, streamingType);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/streaming")
+    public List<ReviewStreamingResponseDto> getByStreaming(HttpServletRequest request, @RequestParam("streamingId") Long streamingId, @RequestParam("streamingType") String streamingType) {
+        return service.getByStreaming(request, streamingId, streamingType);
+    }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/filter")

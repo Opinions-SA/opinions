@@ -82,6 +82,7 @@
 
 .network-serie-container {
   display: flex;
+  padding: 10px;
   flex-wrap: wrap;
   gap: 7%;
   margin-left: 20px;

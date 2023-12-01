@@ -54,6 +54,19 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
         return false;
     }
 
+    const edit = async (username: string, email: string, phone: string) => {
+        try {
+            const data = await api.edit(username, email, phone);
+            if (data.user) {
+                setUser(data.user);
+                return true;
+            } 
+        } catch (error: any) {
+            alert(error.response?.data?.message || "Erro desconhecido");
+        }
+        return false;
+    }
+
     const signout = async () => {
         // const storageData = localStorage.getItem('authToken');
         // await api.logout(storageData ? storageData : "");
@@ -102,7 +115,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
 
 
     return (
-        <AuthContext.Provider value={{ user, token, tokenGetter, signin, signup, signout, validateField, reviewCreate, reviewGet }}>
+        <AuthContext.Provider value={{ user, token, tokenGetter, signin, signup, edit, signout, validateField, reviewCreate, reviewGet }}>
             {children}        
         </AuthContext.Provider>
     )

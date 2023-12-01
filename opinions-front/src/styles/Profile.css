@@ -1,18 +1,10 @@
-.profile-inputs input.input-error {
-  border: 1px solid red !important;
-}
-
-.profile-inputs input.input-valid {
-  border: 1px solid green !important;
-}
-
 .profile-container {
   color: var(--color-black);
   background-color: var(--color-white);
-  padding: 20px 20px 50px 20px;
+  padding: 20px 20px 20px 20px;
   border-radius: 6px;
   display: flex;
-  height: 80vh;
+  height: 80%;
   max-width: 60%;
   margin: 1rem auto;
   box-shadow: 0 0 12px var(--color-grey-shadow);
@@ -23,25 +15,34 @@
 
 .user-icon {
   font-size: 50px;
-  margin: 20px;
+  margin: 10px;
 }
 
 .profile-inputs {
   width: 80%;
-  height: 95%;
+  height: 100%;
   font-size: 14px;
+  margin-bottom: 10px;
   color: #000;
   background-color: #ffffff;
 }
 
 .profile-inputs {
-  padding: 15px;
+  padding: 20px 20px 40px 20px;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s; 
+}
+
+.profile-inputs input.input-error {
+  border: 1px solid red !important;
+}
+
+.profile-inputs input.input-valid {
+  border: 1px solid green !important;
 }
 
 .profile-inputs input {
@@ -74,38 +75,4 @@
 .profile-inputs .profile-button:active {
   background-color: #f1f1f1; 
   transform: scale(1.02); 
-}
-
-.signup-content {
-  margin: 15px 0;
-}
-
-.signup-content label {
-  color: #4e4e4e;
-}
-
-.signup-button {
-  background-color: #00000000;
-  border: none;
-  cursor: pointer;
-  margin-left: 5px;
-  font-weight: bold;
-  color: #000000;
-  position: relative;
-  transition: transform 0.2s;
-}
-
-.signup-button:hover {
-  transform: scale(1.02);
-}
-
-.signup-button:hover::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: #000000;
-  position: absolute;
-  bottom: -1px;
-  left: 0;
 }

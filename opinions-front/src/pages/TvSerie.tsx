@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { register } from "swiper/element/bundle";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
   BsWallet2,
@@ -6,19 +8,33 @@ import {
   BsFillFileEarmarkTextFill,
 } from "react-icons/bs";
 
+register();
+
 import { TvSerie } from "../interface/TvSerie";
 
 import UserReview from "../components/userReview/UserReview";
+import ListReview from "../components/userReview/ListReview";
 
 import "../styles/TvSerie.css";
+import { AuthContext } from "../contexts/Auth/AuthContext";
+import { Review } from "../interface/Review";
 
 const seriesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;
 
 const TvSeriePage = () => {
+  const [SlidePerView, setSlidePerView] = useState(1)
+
+  const auth = useContext(AuthContext);
   const { id } = useParams();
   const [tvSerie, setTvSerie] = useState<TvSerie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
+  const [review, setReview] = useState<Review | null>(null);
+  const [view, setView] = useState(false);
+
+  const [userToken, setUserToken] = useState<string>(""); 
+
+  const reviewUrl: string = `${seriesApiURL}/review/streaming?streamingId=${id}&streamingType=${"tv"}`;
 
   const getTvSerie = async (url: RequestInfo | URL) => {
     const options: RequestInit = {
@@ -37,9 +53,33 @@ const TvSeriePage = () => {
   };
 
   useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const response = await auth.tokenGetter();
+        setUserToken(response ? response.toString() : "");
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
+    };
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
     const tvSerieUrl: string = `${seriesApiURL}/streaming/tv/${id}`;
     getTvSerie(tvSerieUrl);
-  }, [id]);
+    if (userToken && id) {
+      const getReview = async () => {
+        try {
+          const reviewResponse = await auth.reviewGet(userToken, parseInt(id, 10), "tv");
+          if (reviewResponse) { setReview(reviewResponse); return;}
+          setView(true)
+        } catch (error) {
+          console.error('Error fetching review:', error);
+        }
+      };
+      getReview();
+    }
+  }, [id, userToken]);
 
   const toggleUserReview = () => {
     setShowUserReview(!showUserReview);
@@ -113,7 +153,7 @@ const TvSeriePage = () => {
                       <BsWallet2 /> Networks
                     </h3>
                     <div className="network-serie-container">
-                      {tvSerie.networks.map((network) => (
+                      {tvSerie.networks.slice(0, 3).map((network) => (
                           <img
                             className="network-image"
                             src={imageUrl + network.logo_path}
@@ -127,20 +167,39 @@ const TvSeriePage = () => {
                   </h3>
                   <p>{tvSerie.overview}</p>
                 </div>
-                <button
-                  className="open-review-button"
-                  onClick={toggleUserReview}
-                >
-                  Abrir Avaliação
-                </button>
-                {showUserReview && (
-                  <div className="review-overlay">
-                    <UserReview onClose={toggleUserReview} />
-                  </div>
-                )}
               </div>
             </div>
           </div>
+          {/* List of series reviews */}
+          <div className="list-movies-container">
+          <h1 className="list-movies-title">Recent Communit Reviews</h1>
+          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
+          <div className="list-review-item"> 
+            <SwiperSlide className="carousel-review-list">
+            {id && (
+              <ListReview url={reviewUrl} />
+            )}
+            </SwiperSlide>
+          </div> 
+          </Swiper>
+          </div>
+          {id && view && (
+                  <>
+                    <div className="review-button-container">
+                      <button
+                        className="open-review-button"
+                        onClick={toggleUserReview}
+                      >
+                        New Review
+                      </button>
+                    </div>
+                    {showUserReview && (
+                      <div className="review-overlay">
+                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "tv" }}/>
+                      </div>
+                    )}
+                  </>
+                )}
         </>
       )}
     </div>

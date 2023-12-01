@@ -5,11 +5,6 @@ import { register } from "swiper/element/bundle";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 register();
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import 'swiper/css/parallax';
 
 import "./Header.css";
 import BackCard from "../backDropCard/BackCard";

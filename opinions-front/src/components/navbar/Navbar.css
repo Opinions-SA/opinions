@@ -54,9 +54,8 @@
   transform: scale(1.04);
 }
 
-.user-submit-icon {
-  font-size: 24px;
-  height: 40px;
+.icon-spacer {
+  margin-left: 10px;
 }
 
 .user-submit-content {

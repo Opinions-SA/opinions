@@ -1,0 +1,33 @@
+.review-list-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-list-content {
+  word-wrap: break-word;
+  width: 80%;
+  height: 90%;
+  background-color: #fff; 
+  border-radius: 8px; 
+  padding: 15px; 
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.356); 
+}
+
+.title-list-review {
+  width: 100%;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #666;
+}
+
+.description-list-review {
+  overflow-y: scroll;
+  word-wrap: break-word;
+  border-radius: 7px;
+  color: #666;
+  padding: 2px 0 2px 0;
+  width: 100%;
+  height: 70%;
+  background-color: var(--color-white);
+}

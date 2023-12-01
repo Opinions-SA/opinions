@@ -12,6 +12,7 @@ interface AuthApi {
     validateToken: (token: string) => Promise<AuthResponse>;
     signin: (username: string, password: string) => Promise<AuthResponse>;
     signup: (username: string, email: string, password: string) => Promise<AuthResponse>;
+    edit: (username: string, email: string, phone: string) => Promise<AuthResponse>;
     logout: (token: string) => Promise<AuthResponse>;
     validateField: (field: string, value: string) => Promise<Boolean>;
     reviewCreate: (token: string, streamingId: number, streamingType: string, user: User, title: string, description: string, rate: number) => Promise<Review | null>;
@@ -29,6 +30,10 @@ export const useApi = (): AuthApi => ({
     },
     signup: async (username: string, email: string, password: string) => {
         const response: AxiosResponse<AuthResponse> = await api.post('/auth/register', { username, email, password });
+        return response.data;
+    },
+    edit: async (username: string, email: string, phone: string) => {
+        const response: AxiosResponse<AuthResponse> = await api.post('/user/update', { username, email, phone });
         return response.data;
     },
     logout: async (token: string) => {
