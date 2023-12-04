@@ -22,10 +22,10 @@ const moviesApiURL: string = import.meta.env.VITE_API;
 const imageUrl = import.meta.env.VITE_IMG;
 
 const MoviePage = () => {
-  const [SlidePerView, setSlidePerView] = useState(1)
+  const [SlidePerView, setSlidePerView] = useState(1);
 
   const auth = useContext(AuthContext);
-  
+
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [showUserReview, setShowUserReview] = useState(false);
@@ -61,7 +61,7 @@ const MoviePage = () => {
         const response = await auth.tokenGetter();
         setUserToken(response ? response.toString() : "");
       } catch (error) {
-        console.error('Error fetching token:', error);
+        console.error("Error fetching token:", error);
       }
     };
     fetchToken();
@@ -73,11 +73,18 @@ const MoviePage = () => {
     if (userToken && id) {
       const getReview = async () => {
         try {
-          const reviewResponse = await auth.reviewGet(userToken, parseInt(id, 10), "movie");
-          if (reviewResponse) { setReview(reviewResponse); return;}
-          setView(true)
+          const reviewResponse = await auth.reviewGet(
+            userToken,
+            parseInt(id, 10),
+            "movie"
+          );
+          if (reviewResponse) {
+            setReview(reviewResponse);
+            return;
+          }
+          setView(true);
         } catch (error) {
-          console.error('Error fetching review:', error);
+          console.error("Error fetching review:", error);
         }
       };
       getReview();
@@ -88,6 +95,16 @@ const MoviePage = () => {
     setShowUserReview(!showUserReview);
     const isReviewOpen = !showUserReview;
     document.body.classList.toggle("blur-background", isReviewOpen);
+  };
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -155,14 +172,16 @@ const MoviePage = () => {
                       <BsWallet2 /> Production Companies
                     </h2>
                     <div className="companie-movie-container">
-                      {movie.production_companies.slice(0, 2).map((companie) => (
-                        <div className="companie-movie">
-                          <img
-                            className="companie-image"
-                            src={imageUrl + companie.logo_path}
-                          />
-                        </div>
-                      ))}
+                      {movie.production_companies
+                        .slice(0, 2)
+                        .map((companie) => (
+                          <div className="companie-movie">
+                            <img
+                              className="companie-image"
+                              src={imageUrl + companie.logo_path}
+                            />
+                          </div>
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -175,37 +194,64 @@ const MoviePage = () => {
               </div>
             </div>
           </div>
-          {/* List of movies reviews */}
-          <div className="list-movies-container">
-          <h1 className="list-movies-title">Recent Communit Reviews</h1>
-          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
-          <div className="list-review-item"> 
-            <SwiperSlide className="carousel-review-list">
-            {id && (
-              <ListReview url={reviewUrl} />
-            )}
-            </SwiperSlide>
-          </div> 
-          </Swiper>
-          </div>
           {/* Review Card */}
           {id && view && (
-                  <>
-                    <div className="review-button-container">
-                      <button
-                        className="open-review-button"
-                        onClick={toggleUserReview}
-                      >
-                        Create a New Review
-                      </button>
-                    </div>
-                    {showUserReview && (
-                      <div className="review-overlay">
-                        <UserReview onClose={toggleUserReview} data={{ id: id, type: "movie" }}/>
-                      </div>
-                    )}
-                  </>
-                )}
+            <>
+              <div className="review-button-container">
+                <button
+                  className="open-review-button"
+                  onClick={toggleUserReview}
+                >
+                  Create a New Review
+                </button>
+              </div>
+              {showUserReview && (
+                <div className="review-overlay">
+                  <UserReview
+                    onClose={toggleUserReview}
+                    data={{ id: id, type: "movie" }}
+                  />
+                </div>
+              )}
+            </>
+          )}
+
+          {/* List of movies reviews */}
+          <div className="list-movies-container">
+            <h1 className="list-movies-title">Recent Communit Reviews</h1>
+            <Swiper
+              className="list-review-cards"
+              slidesPerView={SlidePerView}
+              navigation
+            >
+              <div className="list-review-item">
+                <SwiperSlide className="carousel-review-list">
+                  {id && <ListReview url={reviewUrl} />}
+                </SwiperSlide>
+              </div>
+            </Swiper>
+          </div>
+
+          {/* Trailer */}
+          <div className="trailer-container">
+          {movie && movie.trailer && (
+        <button className="open-review-button" onClick={handleButtonClick}>
+          Assistir Trailer
+        </button>
+      )}
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <iframe title="Trailer" width="800" height="475" src={movie.trailer} frameBorder="0" allowFullScreen></iframe>
+          </div>
+        </div>
+      
+      )}
+      </div>
         </>
       )}
     </div>

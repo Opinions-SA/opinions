@@ -159,3 +159,15 @@
 .list-review-cards {
   margin-left: 10px;
 }
+
+/* Trailer */
+
+.trailer-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}

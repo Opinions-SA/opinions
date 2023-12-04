@@ -87,6 +87,16 @@ const TvSeriePage = () => {
     document.body.classList.toggle("blur-background", isReviewOpen);
   };
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="tvSerie-page">
       {tvSerie && (
@@ -170,19 +180,7 @@ const TvSeriePage = () => {
               </div>
             </div>
           </div>
-          {/* List of series reviews */}
-          <div className="list-movies-container">
-          <h1 className="list-movies-title">Recent Communit Reviews</h1>
-          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
-          <div className="list-review-item"> 
-            <SwiperSlide className="carousel-review-list">
-            {id && (
-              <ListReview url={reviewUrl} />
-            )}
-            </SwiperSlide>
-          </div> 
-          </Swiper>
-          </div>
+          {/* Review Card */}
           {id && view && (
                   <>
                     <div className="review-button-container">
@@ -200,6 +198,41 @@ const TvSeriePage = () => {
                     )}
                   </>
                 )}
+
+          {/* List of series reviews */}
+          <div className="list-movies-container">
+          <h1 className="list-movies-title">Recent Communit Reviews</h1>
+          <Swiper className='list-review-cards' slidesPerView={SlidePerView} navigation>
+          <div className="list-review-item"> 
+            <SwiperSlide className="carousel-review-list">
+            {id && (
+              <ListReview url={reviewUrl} />
+            )}
+            </SwiperSlide>
+          </div> 
+          </Swiper>
+          </div>
+          
+            {/* Trailer */}
+          <div className="trailer-container">
+          {tvSerie && tvSerie.trailer && (
+        <button className="open-review-button" onClick={handleButtonClick}>
+          Assistir Trailer
+        </button>
+      )}
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <iframe title="Trailer" width="800" height="475" src={tvSerie.trailer} frameBorder="0" allowFullScreen></iframe>
+          </div>
+        </div>
+      
+      )}
+      </div>
         </>
       )}
     </div>
